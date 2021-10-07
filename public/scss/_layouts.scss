@@ -1,0 +1,57 @@
+.card{
+  .card-title{
+    font-style: italic;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+}
+
+.suggested-video{
+  overflow: hidden;
+}
+
+/** Sidebar **/
+
+#wrapper {
+  overflow-x: hidden;
+}
+
+.sidebar {
+  margin-left: -15rem;
+  -webkit-transition: margin .2s ease-out;
+  -moz-transition: margin .2s ease-out;
+  -o-transition: margin .2s ease-out;
+  transition: margin .2s ease-out;
+}
+
+.sidebar .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+.sidebar .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper .sidebar.sb-sidenav-toggled {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper .sidebar.sb-sidenav-toggled {
+    margin-left: -20rem;
+  }
+}

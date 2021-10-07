@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand p-3 col-3 me-0">
+              <img src="https://getbootstrap.com//docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+              It's Chilltime
+            </a>
+            {{> search }}
+            <button class="btn btn-outline-primary" id="sidebarToggle"><i class="bi bi-list"></i></button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="index">
+      <div id="wrapper" class="container-fluid">
+        <div class="row flex-nowrap">
+          <!-- Sidebar -->
+          <div class="sidebar col-3 {{#ifTrue open }}{{/ifTrue}}">
+            {{> sidebar open }}
+          </div>

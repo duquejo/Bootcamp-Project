@@ -1,0 +1,51 @@
+{{> header }}
+
+<!-- Main content -->
+<div id="single-video" class="main-content col-9 mb-5">
+  <div class="row no-gutters">
+    <div class="col-12">
+
+      <!-- Video -->
+      <video class="ratio" controls>
+        <source src="/uploads/{{ video.url }}" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    
+      <div class="meta-content d-flex flex-row justify-content-between mt-3">
+          {{#if video.tags.length }}
+            <div class="tags-content">
+              <!-- Tags -->
+                {{#each video.tags}}
+                  {{>badge this }}
+                {{/each}}
+            </div>
+          {{/if}}
+        <a class="likes-content">
+          <i class="bi bi-heart-fill"></i><small class="ms-2">{{ video.likes }} likes</small>
+        </a>
+      </div>
+      
+      <!-- Title -->
+      <h3 class="mt-3">{{ video.name }}</h3>
+
+    </div>
+  </div>
+</div>
+
+<div class="suggested-video col">
+  <h2 class="mb-4">Recent videos</h2>
+  <div class="row">
+      <a href="#" class="card border-0">
+        <img src="/images/test.jpg" class="card-img-top rounded-top" alt="...">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-8 card-title">hola</div>
+            <p class="col-4 card-text"><small class="text-muted">20 likes</small></p>
+          </div>
+          <p class="card-text">José Duque</p>
+        </div>
+      </a>
+  </div>
+</div>
+
+{{> footer }}
