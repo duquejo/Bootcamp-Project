@@ -1,17 +1,17 @@
-<div class="col-sm-6 col-lg-4 mb-3">
+<div class="{{ layout }}">
   <a href="/video/{{ this._id }}" class="card border-0">
-    <img src="images/test.jpg" class="card-img-top rounded-top" alt="...">
+    <img src="/images/test.jpg" class="card-img-top rounded-top" alt="...">
     <div class="card-body">
       {{#if this/tags.length }}
         <!-- Tags -->
         <div class="tags-content mb-3">
           {{#each this/tags}}
-            {{>badge this}}
+            {{>badge this }} 
           {{/each}}
         </div>
       {{/if}}
-      <div class="card-title">{{ this.name }}</div>
-      <p class="card-text">José Duque</p>
+      <div class="card-title mb-0">{{ this.name }}</div>
+      <p class="card-text mb-0 small"><a href="/user/{{ this.owner.username }}">{{ this.owner.name }}</a></p>
       <p class="card-text"><small class="text-muted">{{ this.likes }} likes</small></p>
     </div>
   </a>

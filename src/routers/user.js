@@ -36,6 +36,21 @@ router.get('/profile/me', userMiddleware, async ( req, res ) => {
 });
 
 /**
+ * User profile
+ */
+router.get('/user/:username', async (req, res) => {
+  try {
+    const user = await User.findOne( {
+      username: req.params.username
+    } );    
+    if( ! user ) return res.status(404).send();
+    res.send(user);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
+/**
  * Get user videos
  */
  router.get('/user/:id/videos', async (req, res) => {

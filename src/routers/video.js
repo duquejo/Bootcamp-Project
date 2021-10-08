@@ -13,6 +13,7 @@ const Category         = require('../models/Category');
 const uploadMiddleware = require('../middleware/upload');
 const userMiddleware   = require('../middleware/user');
 const router           = express.Router();
+const mongoose         = require('mongoose');
 
 /**
  * Get all videos (with filters)
@@ -40,8 +41,12 @@ router.get('/videos', async (req, res) => {
 
   try {
 
-    const videos = await Video.find( search );
+    const videos = await Video.find( search ).populate( [
+      { path: 'owner', select: [ 'name', 'username' ] }
+    ]);
+
     if( videos.length == 0 ) return res.status(404).send();
+
     res.send( videos );    
 
   } catch (e) {
@@ -55,10 +60,7 @@ router.get('/videos', async (req, res) => {
 router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
 
   let tags = req.body.tags;
-  tags = tags ? tags.split(',').map( tag => tag.trim() ) : undefined;
-  
-
-  console.log( req.file );
+  tags = tags ? tags.split(',').map( tag => tag.trim() ).filter( el => el != '' ) : undefined;
 
   try {
 
@@ -87,11 +89,11 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
          * Add new tags into schema
          */        
         await Category.insertMany( tagsObject, ( error, docs ) => {
-          if( error ) res.status(500).send( error );
+          console.log( error );
+          if( error ) return res.status(500).send( error );
         });
       }
     }
-
     res.status(201).send();
   } catch (e) {
     res.status(400).send(e.message);
@@ -103,7 +105,9 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
  */
 router.get('/video/:id', async (req, res) => {
   try {
-    const video = await Video.findById( req.params.id );
+    const video = await Video.findById( req.params.id ).populate( [
+      { path: 'owner', select: [ 'name', 'username' ] }
+    ]);
 
     if( ! video ) return res.status(404).send();  
 

@@ -13,6 +13,7 @@ a.card:hover {
 }
 
 .search-form{
+  position: relative;
   .btn-outline-primary{
     color: $indigo;
     border-color: $indigo;
@@ -21,6 +22,31 @@ a.card:hover {
       color: $white;
     }
   }
+  .dropdown-content {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    top: 100%;
+    border-radius: 0 0 0.25rem 0.25rem;
+    overflow-y: auto;
+    max-height: 300px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+    a{
+      display: block;
+      padding-bottom: 0.2rem;
+      border-bottom: 1px solid #ced4da;
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
+
+.likes-content{
+  cursor: pointer;
+  display: inline-flex;
+  align-content: center;
 }
 
 .sidebar{
@@ -38,7 +64,13 @@ a.card:hover {
   }
 }
 
+.form-upload-messages{
+  display: none;
+}
+
 .tag-bar{
+  overflow-x: auto;
+  white-space: nowrap;
   .badge{
     transition: background 0.1s ease-in;
     &:hover{

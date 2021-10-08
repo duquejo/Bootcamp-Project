@@ -15,3 +15,28 @@ h3{
   font-weight: 700;
   font-style: italic;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+  border: 0px solid transparent;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3e3e3e;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none transparent;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

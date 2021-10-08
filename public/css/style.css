@@ -10661,6 +10661,10 @@ a.card:hover {
   text-decoration: none;
 }
 
+.search-form {
+  position: relative;
+}
+
 .search-form .btn-outline-primary {
   color: #6610f2;
   border-color: #6610f2;
@@ -10671,6 +10675,33 @@ a.card:hover {
   color: #fff;
 }
 
+.search-form .dropdown-content {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 100%;
+  border-radius: 0 0 0.25rem 0.25rem;
+  overflow-y: auto;
+  max-height: 300px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.search-form .dropdown-content a {
+  display: block;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid #ced4da;
+  text-decoration: none;
+  color: inherit;
+}
+
+.likes-content {
+  cursor: pointer;
+  display: inline-flex;
+  align-content: center;
+}
+
 .sidebar .nav-item .nav-link.active {
   color: #6610f2;
   background: none;
@@ -10679,6 +10710,15 @@ a.card:hover {
 .sidebar .nav-item .nav-link:hover {
   background: #6610f2;
   color: #fff !important;
+}
+
+.form-upload-messages {
+  display: none;
+}
+
+.tag-bar {
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .tag-bar .badge {
@@ -10779,6 +10819,36 @@ h2, .h2 {
 h3, .h3 {
   font-weight: 700;
   font-style: italic;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+  border: 0px solid transparent;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3e3e3e;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none transparent;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

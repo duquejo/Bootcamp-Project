@@ -7,9 +7,9 @@
     {{/each}}
   </div>
   <h2 class="mb-4">Recent videos</h2>
-  <div class="row" data-masonry="{'percentPosition': true }">
+  <div class="row">
     {{#each videos}}
-      {{> card }}
+      {{> card layout="col-sm-6 col-lg-4 mb-3" }}
     {{/each}}
   </div>
 </div>
