@@ -104,3 +104,6 @@ dist
 
 # Server videos
 uploads/
+
+# CSS final file (It's generated in render time)
+style.css
