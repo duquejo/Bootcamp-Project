@@ -61,4 +61,11 @@ router.get('/upload', async (req, res) => {
  */
 router.get( '*', (req, res) => res.status(404).send( '[404] Route not found' ) );
 
+/**
+ * 
+ * @todo Continuar con filtro por categorías.
+ * @todo Validaciones custom para el form upload
+ * @todo Descargar video
+ */
+
 module.exports = router;

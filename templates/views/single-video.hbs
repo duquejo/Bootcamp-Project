@@ -12,15 +12,17 @@
       </video>
     
       <div class="meta-content d-flex flex-row justify-content-between mt-3">
+        <div class="tags-content">
           {{#if video.tags.length }}
-            <div class="tags-content">
-              <!-- Tags -->
-                {{#each video.tags}}
-                  {{>badge this }}
-                {{/each}}
-            </div>
+            <!-- Tags -->
+            {{#each video.tags}}
+              {{>badge this }}
+            {{/each}}
+          {{else}}
+            {{>badge "uncategorized"}}
           {{/if}}
-        <a class="likes-content">
+        </div>
+        <a class="likes-content" data-id="{{ video._id }}">
           <i class="bi bi-heart-fill"></i><small class="ms-2">{{ video.likes }} likes</small>
         </a>
       </div>
@@ -36,11 +38,11 @@
 <div class="suggested-video col">
   <h2 class="mb-4">Recent videos</h2>
   <div class="row">
-      <a href="#" class="card border-0">
+      <div class="card border-0">
         {{#each suggestedVideos }}
           {{> card layout="col-12" }}
         {{/each}}
-      </a>
+      </div>
   </div>
 </div>
 

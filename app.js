@@ -11,8 +11,6 @@ const path           = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const hbs            = require('hbs');
 
-hbs.registerHelper('ifTrue', ( arg1 ) => arg1 == false ? 'sb-sidenav-toggled' : '' );
-
 /**
  * DATABASE METHODS
  */
@@ -50,6 +48,11 @@ const partialsPath        = path.join( __dirname, './templates/partials' );
  */
 app.set( 'view engine', 'hbs' );
 app.set( 'views', viewsPath );
+
+/**
+ * HBS Helpers
+ */
+hbs.registerHelper('ifTrue', ( arg1 ) => arg1 == false ? 'sb-sidenav-toggled' : '' );
 
 hbs.registerPartials( partialsPath );
 

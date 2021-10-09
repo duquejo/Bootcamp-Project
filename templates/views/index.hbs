@@ -1,13 +1,13 @@
 {{> header }}
 <!-- Main content -->
 <div class="main-content col-9 mb-5">
-  <div class="tag-bar border-top border-bottom py-3 mb-3">
+  <div class="tag-bar border-top border-bottom pt-3 pb-2 mb-3">
     {{#each tags}}
-      <span class="badge rounded-pill bg-light text-dark py-2 px-3"><a href="#">{{ this.name }}</a></span>
+      <span class="badge rounded-pill bg-light text-dark py-2 px-3" data-category="{{ this.name }}">{{ this.name }}</span>
     {{/each}}
   </div>
-  <h2 class="mb-4">Recent videos</h2>
-  <div class="row">
+  <h2 class="video-grid-title mb-4">Recent videos <small class="fw-light">({{ videos.length }})</small></h2>
+  <div class="video-grid row">
     {{#each videos}}
       {{> card layout="col-sm-6 col-lg-4 mb-3" }}
     {{/each}}

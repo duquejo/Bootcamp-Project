@@ -5,7 +5,7 @@ a.card:hover {
   border-top: 0;
 }
 
-.main-content{
+.main-content, .suggested-video{
   a{
     color: #212529;
     text-decoration: none;
@@ -47,6 +47,7 @@ a.card:hover {
   cursor: pointer;
   display: inline-flex;
   align-content: center;
+  color: #212529;
 }
 
 .sidebar{
@@ -64,6 +65,20 @@ a.card:hover {
   }
 }
 
+.form-check{
+  padding: 0.35em 0.65em 0.35em 1.7rem;
+  margin-right: 0;
+  font-size: 0.75em;
+  font-weight: 700;
+  background-color: $dark;
+  border-radius: 50rem !important;
+  color: $white;
+  text-transform: capitalize;
+  input:checked + label{
+    text-decoration: underline;
+  }
+}
+
 .form-upload-messages{
   display: none;
 }
@@ -73,11 +88,15 @@ a.card:hover {
   white-space: nowrap;
   .badge{
     transition: background 0.1s ease-in;
+    text-transform: capitalize;
+    cursor: pointer;
     &:hover{
       background: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
-      a{
-        color: $white !important;
-      }
+      color: $white !important;
+    }
+    &.active{
+      background: rgba( $indigo, var(--bs-bg-opacity)) !important;
+      color: $white !important;
     }
   }
 }

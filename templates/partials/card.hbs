@@ -1,18 +1,20 @@
-<div class="{{ layout }}">
-  <a href="/video/{{ this._id }}" class="card border-0">
+<div class="card border-0 {{ layout }}">
+  <a href="/video/{{ this._id }}">
     <img src="/images/test.jpg" class="card-img-top rounded-top" alt="...">
-    <div class="card-body">
+  </a>    
+  <div class="card-body">
+    <!-- Tags -->
+    <div class="tags-content mb-3">
       {{#if this/tags.length }}
-        <!-- Tags -->
-        <div class="tags-content mb-3">
-          {{#each this/tags}}
-            {{>badge this }} 
-          {{/each}}
-        </div>
+        {{#each this/tags}}
+          {{>badge this }} 
+        {{/each}}
+      {{else}}
+        {{>badge "uncategorized" }} 
       {{/if}}
-      <div class="card-title mb-0">{{ this.name }}</div>
-      <p class="card-text mb-0 small"><a href="/user/{{ this.owner.username }}">{{ this.owner.name }}</a></p>
-      <p class="card-text"><small class="text-muted">{{ this.likes }} likes</small></p>
     </div>
-  </a>
+    <div class="card-title mb-0"><a href="/video/{{ this._id }}">{{ this.name }}</a></div>
+    <p class="card-text mb-0 small"><a href="/user/{{ this.owner.username }}">{{ this.owner.name }}</a></p>
+    <p class="likes-content small"><i class="bi bi-heart-fill"></i><span class="ms-2">{{ this.likes }} likes</span></p>
+  </div>
 </div>

@@ -21,6 +21,8 @@ const mongoose         = require('mongoose');
 router.get('/videos', async (req, res) => {
 
   let search = {};
+  let tags = req.query.tags;
+  parsedTags = tags ? tags.split(',').map( tag => tag.toLowerCase().trim() ).filter( el => el != '' ) : undefined;
 
   /**
    * Search params
@@ -35,10 +37,12 @@ router.get('/videos', async (req, res) => {
   /**
    * Tag search
    */
-  if( req.query.tags ){
-    search.tags = req.query.tags.trim().toLowerCase();
+  if( parsedTags ){
+    search.tags = {
+      $in: parsedTags
+    }
   }
-
+  
   try {
 
     const videos = await Video.find( search ).populate( [
@@ -141,15 +145,10 @@ router.delete('/video/:id', async (req, res) => {
  * Add User likes
  */
 router.patch('/video/:id/like', async (req, res) => {
-
   try {
-
-    const video = await Video.findOneAndUpdate({ _id: req.params.id }, { $inc: { likes: 1 } }, { new: true } );
-
+    const video = await Video.findOneAndUpdate({ _id: req.params.id }, { $inc: { likes: 1 } }, { new: true } ).select('likes');
     if( ! video ) return res.status(404).send();
-
     res.send( video );
-
   } catch (e) {
     res.status(500).send(e.message);
   }
