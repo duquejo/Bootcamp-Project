@@ -5,11 +5,26 @@ a.card:hover {
   border-top: 0;
 }
 
+.main-content, .main-video-content{
+  margin-top: 5rem;
+}
+
+.main-video-content{
+  .main-content{
+    margin-top: 0;
+  }
+}
+
 .main-content, .suggested-video{
   a{
     color: #212529;
     text-decoration: none;
   }
+}
+
+.suggested-video {
+  overflow-x: auto;
+  height: calc( 100vh - 135px );
 }
 
 .search-form{
@@ -76,6 +91,18 @@ a.card:hover {
   text-transform: capitalize;
   input:checked + label{
     text-decoration: underline;
+  }
+}
+
+.btn-label {
+  position: relative;
+  left: -5px;
+  top: 2px;
+  display: inline-block;
+  padding: 0px 1px;
+  .btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
 

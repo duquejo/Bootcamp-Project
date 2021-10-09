@@ -50,10 +50,9 @@ app.set( 'view engine', 'hbs' );
 app.set( 'views', viewsPath );
 
 /**
- * HBS Helpers
+ * HBS HELPERS & CONFIG
  */
 hbs.registerHelper('ifTrue', ( arg1 ) => arg1 == false ? 'sb-sidenav-toggled' : '' );
-
 hbs.registerPartials( partialsPath );
 
 /**
@@ -94,3 +93,14 @@ app.use( appRouter );
 http.createServer(app).listen( port, () => {
   console.log(`Server started on port ${ port }`);
 });
+
+/**
+ * @todo Check form validations
+ * Video thumbnail tweak
+ * Users management
+ * Organize Theme styles
+ * Users avatar
+ * Add more routes to frontend (delete etc.)
+ * Responsiveness
+ * Testing
+ */

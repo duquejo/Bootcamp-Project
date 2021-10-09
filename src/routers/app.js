@@ -36,7 +36,8 @@ router.get('/video/:id', async ( req, res ) => {
  */
 router.get('/user/:username', async (req, res) => {
   const user = await UserController.singleProfile( req.params.username );
-  res.render( 'single-user', { user } );
+  const videos = await UserController.userVideos( user._id );
+  res.render( 'single-user', { user, videos } );
 });
 
 
@@ -45,7 +46,8 @@ router.get('/user/:username', async (req, res) => {
  */
  router.get('/profile', userMiddleware, async (req, res) => {
   const user = await UserController.singleProfile( req.user.username );
-  res.render( 'single-user', { user } );
+  const videos = await UserController.userVideos( req.user._id );
+  res.render( 'single-user', { user, videos, own: true } );
 });
 
 /**
@@ -60,12 +62,5 @@ router.get('/upload', async (req, res) => {
  * 404
  */
 router.get( '*', (req, res) => res.status(404).send( '[404] Route not found' ) );
-
-/**
- * 
- * @todo Continuar con filtro por categorías.
- * @todo Validaciones custom para el form upload
- * @todo Descargar video
- */
 
 module.exports = router;

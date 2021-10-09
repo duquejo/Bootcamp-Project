@@ -10,24 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hyperform/0.12.0/hyperform.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand p-3 col-3 me-0">
-              <img src="https://getbootstrap.com//docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-              It's Chilltime
-            </a>
-            {{> search }}
-            <button class="btn btn-outline-primary" id="sidebarToggle"><i class="bi bi-list"></i></button>
-          </div>
-        </div>
-      </nav>
+  <body id="body-pd">
+    <header class="header" id="header">
+      <div class="header_toggle">
+        <i id="header-toggle" class="bi bi-list"></i>
+      </div>
+      {{> search }}
+      <div class="header_img"><img src="https://i.imgur.com/hczKIze.jpg" alt=""></div>
     </header>
-    <main class="index">
-      <div id="wrapper" class="container-fluid">
-        <div class="row flex-nowrap">
-          <!-- Sidebar -->
-          <div class="sidebar col-3 {{#ifTrue open }}{{/ifTrue}}">
-            {{> sidebar open }}
-          </div>
+    {{> sidebar open }}
