@@ -1,9 +1,14 @@
-:root {
-  --chilltime-font-family: 'Open Sans', sans-serif;
-}
+
+/** Variables **/
+
+$indigo-light: #AFA5D9;
+$chilltime-font-family: 'Open Sans', sans-serif;
+$z-fixed: 100;
+$header-height: 3rem;
+$nav-width: 68px;
 
 body {
-  font-family: var(--chilltime-font-family);
+  font-family: $chilltime-font-family;
 }
 
 h2{
@@ -25,6 +30,12 @@ h5{
   font-weight: 500;
   font-style: italic;
 }
+
+a {
+  text-decoration: none
+}
+
+/** Scrollbar Chrome **/
 
 ::-webkit-scrollbar {
   width: 8px;
