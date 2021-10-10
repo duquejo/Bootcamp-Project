@@ -103,7 +103,7 @@ dist
 .tern-port
 
 # Server videos & thumbnails
-uploads/
+videos/
 thumbnails/
 
 
