@@ -19,6 +19,9 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  thumbnail: {
+    type: String
+  },
   likes: {
     type: Number,
     default: 0

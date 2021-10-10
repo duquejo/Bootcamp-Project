@@ -6,14 +6,18 @@
  * @requires router Express Route
  * @requires multer Media Handling
  */
-const express          = require('express');
-const path             = require('path');
-const Video            = require('../models/Video');
-const Category         = require('../models/Category');
-const uploadMiddleware = require('../middleware/upload');
-const userMiddleware   = require('../middleware/user');
-const router           = express.Router();
-const mongoose         = require('mongoose');
+const path                = require('path');
+const express             = require('express');
+const mongoose            = require('mongoose');
+const router              = express.Router();
+
+const Video               = require('../models/Video');
+const Category            = require('../models/Category');
+
+const uploadMiddleware    = require('../middleware/upload');
+const userMiddleware      = require('../middleware/user');
+
+const VideoController     = require('../controllers/videoController');
 
 /**
  * Get all videos (with filters)
@@ -68,16 +72,27 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
 
   try {
 
+    /**
+     * Thumbnail
+     */
+    const thumbSrc = await VideoController.generateThumbnails( req.file.filename );
+
+    /**
+     * Save video
+     */
     const video = new Video({
       name: req.body.name,
       url: req.file.filename,
+      thumbnail: thumbSrc[0],
       owner: req.user._id,
       tags
     });
 
     await video.save();
 
-    // Create new tags
+    /**
+     * Create new tags
+     */
     if( tags ) {
 
       const availableTags = await Category.find({}).select('name');
@@ -93,7 +108,6 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
          * Add new tags into schema
          */        
         await Category.insertMany( tagsObject, ( error, docs ) => {
-          console.log( error );
           if( error ) return res.status(500).send( error );
         });
       }

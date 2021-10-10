@@ -65,7 +65,7 @@ app.use( sassMiddleware({
   dest: destDirectoryPath,
   outputStyle: 'expanded',
   includePaths: [ 
-    path.join( __dirname ), 'node_modules/bootstrap\/sass',
+    path.join( __dirname ), 'node_modules\/bootstrap\/sass',
   ],
   prefix: '/css',
   // debug: true
@@ -95,10 +95,10 @@ http.createServer(app).listen( port, () => {
 });
 
 /**
- * @todo Check form validations
- * Video thumbnail tweak
+ * @todo List
+ * 
+ * Check form validations
  * Users management
- * Organize Theme styles
  * Users avatar
  * Add more routes to frontend (delete etc.)
  * Responsiveness

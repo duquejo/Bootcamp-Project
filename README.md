@@ -6,7 +6,7 @@
 npm i express hbs mongodb mongoose node-sass-middleware
 npm i -D nodemon env-cmd
 
-## Configure ENV module like this
+## nodejs file setup
 ```sh
   ...
   "scripts": {
@@ -15,6 +15,9 @@ npm i -D nodemon env-cmd
   },
   ...
 ```
+
+## It's important to remember this. 
+http://www.ffmpeg.org/download.html it's very necessary to install in the app server.
 
 ## Useful links
 
