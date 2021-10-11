@@ -10,13 +10,12 @@ const User     = require('../models/User');
 
 const userMiddleware = async ( req, res, next ) => {
   try {
-
+    
     /**
-     * @todo Make it dynamic
+     * Last created user
      */
-    const ownerId = mongoose.Types.ObjectId('615b99f22657154fd2f92d1f');
-    const user = await User.findById( ownerId );
-
+    const user = await User.findOne().sort({'createdAt': -1});
+    
     /**
      * Adding user field as request param
      */

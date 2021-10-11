@@ -119,7 +119,7 @@ window.onload = function () {
       
       const $video = $formUpload.querySelector('#preview');
       let videoSource = e.target.files;
-      console.log( videoSource)
+      // console.log( videoSource)
 
       if( videoSource.length == 0 ) return;
 
@@ -211,7 +211,7 @@ window.onload = function () {
     $likesCount.addEventListener('click', (e) => {
       let videoId = e.currentTarget.getAttribute('data-id');
       if( videoId && videoId.length > 0 ){
-        console.log( videoId )
+        // console.log( videoId )
         
         fetch( `/api/v1/video/${ videoId }/like`, { method: 'PATCH' }).then( response => response.json() ).then( response => {
           if( response ){

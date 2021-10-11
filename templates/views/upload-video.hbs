@@ -32,15 +32,17 @@
     </div>
 
     <!-- Category -->
-    <div class="tags-container mb-4" aria-describedby="categorySelectHelp" required>
+    {{#if tags.length }}
+      <div class="tags-container mb-4" aria-describedby="categorySelectHelp" required>
         {{#each tags }}
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="form-check-{{ _id }}" name="form-category" value="{{ name }}">
             <label class="form-check-label" for="form-check-{{ _id }}">{{ name }}</label>
           </div>    
         {{/each}}
-      <div id="categorySelectHelp" class="form-text">Select a video category created by the community</div>
-    </div>
+        <div id="categorySelectHelp" class="form-text">Select a video category created by the community</div>
+      </div>
+    {{/if}}
 
     <!-- New Category -->
     <div class="mb-4">
