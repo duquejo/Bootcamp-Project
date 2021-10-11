@@ -102,8 +102,10 @@ window.onload = function () {
         method: 'POST',
         body: formData
       }).then( response => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         if( response.ok == true && response.status == '201' ) {
           $formUpload.reset();
+          $formUpload.querySelector('#preview').innerHTML = '';
           showMessage( 'The video has been uploaded successfully!', 'alert-success', 'bi-check-circle-fill' );
         } else {
           showMessage( 'Something happened, check it and retry again.', 'alert-danger', 'bi-x-circle-fill' );

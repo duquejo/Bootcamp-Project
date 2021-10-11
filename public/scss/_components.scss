@@ -62,7 +62,7 @@ a.card:hover {
 
 .suggested-video {
   overflow-x: auto;
-  height: calc( 100vh - 135px );
+  height: calc( 100vh - 90px );
 }
 
 .search-form{
@@ -177,4 +177,7 @@ a.card:hover {
       }
     }
   }
+}
+.actions-content a{
+  display: inline-block;
 }
