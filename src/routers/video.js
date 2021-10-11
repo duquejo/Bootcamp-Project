@@ -18,6 +18,7 @@ const uploadMiddleware    = require('../middleware/upload');
 const userMiddleware      = require('../middleware/user');
 
 const VideoController     = require('../controllers/videoController');
+const { send } = require('process');
 
 /**
  * Get all videos (with filters)
@@ -42,23 +43,42 @@ router.get('/videos', async (req, res) => {
    * Tag search
    */
   if( parsedTags ){
+
+    console.log( parsedTags );
+
+    /**
+     * Get Tags ID's
+     */
+    const tagsIds = await Category.find({ 
+      name : { $in: parsedTags }
+    }).select('_id');
+
+    console.log( tagsIds );
+
     search.tags = {
-      $in: parsedTags
+      $elementMatch: tagsIds[0]
     }
+    /**
+     * Reparar esto
+     * @todo
+     * 
+     */
   }
   
   try {
 
-    const videos = await Video.find( search ).populate( [
-      { path: 'owner', select: [ 'name', 'username' ] }
-    ]);
+    const videos = await Video.find( search )
+      .populate( [ { path: 'owner', select: 'name username' } ])
+      .populate( [ { path: 'tags', select: '-__v' } ]);  
+      
+      // console.log( videos );
 
     if( videos.length == 0 ) return res.status(404).send();
 
     res.send( videos );    
 
   } catch (e) {
-    res.status(500).send(e);
+    return res.status(500).send(e);
   }
 });
 
@@ -68,8 +88,47 @@ router.get('/videos', async (req, res) => {
 router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
 
   let tags = req.body.tags;
+
   tags = tags ? tags.split(',').map( tag => tag.toLowerCase().trim() ).filter( el => el != '' ) : undefined;
 
+  /**
+   * Create new tags
+   */
+  if( tags ) {
+
+    /**
+     * Discard old categories
+     */
+    const availableTags = await Category.find({}).select('name');
+    const availableTagsNames = Object.keys(availableTags).map(k => availableTags[k].name );
+    const tagsArray = tags.filter( tag => ! availableTagsNames.includes( tag ) );
+
+    if( tagsArray.length > 0 ) {
+
+      const tagsObject = tagsArray.map( tag => {
+        return { name: tag }
+      });
+
+      try {
+        /**
+         * Add new tags into schema
+         */        
+        await Category.insertMany( tagsObject, ( error, docs ) => {
+          if( error ) throw new Error( { message: error } );
+        });        
+      } catch (e) {
+        return res.status(500).send( error );
+      }
+    }
+  }
+
+  /**
+   * Get Tags ID's
+   */
+  const tagsIds = await Category.find({ 
+    name : { $in: tags }
+  }).select('_id');
+  
   try {
 
     /**
@@ -85,36 +144,16 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
       url: req.file.filename,
       thumbnail: thumbSrc[0],
       owner: req.user._id,
-      tags
+      tags: tagsIds
     });
+
+    console.log( video );
 
     await video.save();
 
-    /**
-     * Create new tags
-     */
-    if( tags ) {
-
-      const availableTags = await Category.find({}).select('name');
-      const availableTagsNames = Object.keys(availableTags).map(k => availableTags[k].name );
-      const tagsArray = tags.filter( tag => ! availableTagsNames.includes( tag ) );
-
-      if( tagsArray.length > 0 ) {
-
-        let tagsObject = [];
-        tagsArray.map( tag => tagsObject.push( { name: tag } ) );
-
-        /**
-         * Add new tags into schema
-         */        
-        await Category.insertMany( tagsObject, ( error, docs ) => {
-          if( error ) return res.status(500).send( error );
-        });
-      }
-    }
     res.status(201).send();
   } catch (e) {
-    res.status(400).send(e);
+    return res.status(400).send(e);
   }
 });
 
@@ -123,9 +162,9 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
  */
 router.get('/video/:id', async (req, res) => {
   try {
-    const video = await Video.findById( req.params.id ).populate( [
-      { path: 'owner', select: [ 'name', 'username' ] }
-    ]);
+    const video = await Video.findById( req.params.id )
+      .populate( [ { path: 'owner', select: 'name username' } ])
+      .populate( [ { path: 'tags', select: '-_id -__v' } ]);
 
     if( ! video ) return res.status(404).send();  
 

@@ -26,14 +26,14 @@ const videoSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  tags: {
-    type: Array,
-    ref: 'Category' // Reference between Category and Video
-  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User' // Reference between User and Video
+  },
+  tags: {
+    type: [ mongoose.Schema.Types.ObjectId ], // Awway ObjectIds
+    ref: 'Category'
   }
 },{ timestamps: true });
 

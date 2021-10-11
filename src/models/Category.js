@@ -16,12 +16,6 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
-categorySchema.virtual( 'videos', {
-  ref: 'Video',
-  localField: '_id',
-  foreignField: 'tags'
-});
-
 const Category = mongoose.model( 'Category', categorySchema );
 
 module.exports = Category;

@@ -47,6 +47,7 @@ router.get('/user/:username', async (req, res) => {
  router.get('/profile', userMiddleware, async (req, res) => {
   const user = await UserController.singleProfile( req.user.username );
   const videos = await UserController.userVideos( req.user._id );
+  console.log( videos );
   res.render( 'single-user', { user, videos, own: true } );
 });
 
