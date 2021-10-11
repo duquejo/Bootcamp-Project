@@ -1,5 +1,6 @@
 <div class="card border-0 {{ layout }}">
-  <a href="/video/{{ this._id }}">
+  <a class="image-container" href="/video/{{ this._id }}">
+    <div class="play position-absolute top-50 start-50 translate-middle"><i class="bi bi-play-circle animate__animated animate__fadeInDown"></i></div>
     <img src="/uploads/thumbnails/{{ this.thumbnail }}" class="card-img-top rounded-top" alt="{{ this.name }} thumbnail">
   </a>
   <div class="card-body">
@@ -15,6 +16,9 @@
     </div>
     <div class="card-title mb-0"><a href="/video/{{ this._id }}">{{ this.name }}</a></div>
     <p class="card-text mb-0 small"><a href="/user/{{ this.owner.username }}">{{ this.owner.name }}</a></p>
-    <p class="likes-content small"><i class="bi bi-heart-fill"></i><span class="ms-2">{{ this.likes }} likes</span></p>
+    <div class="row mt-2">
+      <p class="likes-content small col-md-6 col-12 text-center"><i class="bi bi-heart-fill"></i><span class="ms-2">{{ this.likes }} likes</span></p>
+      <p class="small col-md-6 col-12 text-end fw-light fst-italic">{{fromNow this.createdAt }}</p>
+    </div>
   </div>
 </div>

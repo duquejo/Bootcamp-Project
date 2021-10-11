@@ -68,7 +68,7 @@ router.get('/videos', async (req, res) => {
 router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
 
   let tags = req.body.tags;
-  tags = tags ? tags.split(',').map( tag => tag.trim() ).filter( el => el != '' ) : undefined;
+  tags = tags ? tags.split(',').map( tag => tag.toLowerCase().trim() ).filter( el => el != '' ) : undefined;
 
   try {
 
@@ -114,12 +114,12 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
     }
     res.status(201).send();
   } catch (e) {
-    res.status(400).send(e.message);
+    res.status(400).send(e);
   }
 });
 
 /**
- * Get video info
+ * Get video by ID
  */
 router.get('/video/:id', async (req, res) => {
   try {
@@ -190,17 +190,5 @@ router.patch('/video/:id/tags', async (req, res) => {
     res.status(500).send(e);
   }
 });
-
-/**
- * Create video by user (done)
- * Get all videos (done)
- * Get user videos (done)
- * delete video (done)
- * add likes to video (done)
- * filter video by category (done)
- * Search video (done)
- * assign tag to video (done)
- * remove video tag (maybe)
- */
 
 module.exports = router;

@@ -91,12 +91,12 @@ body {
     font-size: 1.25rem
 }
 
-.show {
+.show-bar {
     left: 0
 }
 
 .body-pd {
-    padding-left: calc( $nav-width + 1rem)
+    padding-left: calc( #{$nav-width} + 1rem)
 }
 
 .active {
@@ -140,11 +140,11 @@ body {
         padding: 1rem 1rem 0 0
     }
 
-    .show {
+    .show-bar {
         width: calc( #{$nav-width} + 156px)
     }
 
     .body-pd {
-        padding-left: calc( #{$nav-width} + 188px)
+        padding-left: calc(188px + #{$nav-width});
     }
 }

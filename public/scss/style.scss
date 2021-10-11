@@ -1,3 +1,6 @@
+// Normalize Browser styles
+@import 'base/normalize';
+
 // Bootstrap
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
@@ -9,9 +12,6 @@
 
 // Global settings
 @import 'base/globals';
-
-// Normalize Browser styles
-@import 'base/normalize';
 
 // Sidebar
 @import 'sidebar';

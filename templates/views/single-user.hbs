@@ -1,6 +1,6 @@
 {{> header }}
 <!-- Main content -->
-<div class="main-content height-100">
+<div class="main-content container">
   {{#if own }}
     <h2 class="mb-4">My profile</h2>
     <p>That's your personal info in <b>It's Chilltime</b>:</p>
@@ -43,7 +43,7 @@
             </div>
             <div class="row">
               <div class="col-4 col-md-4 fw-bold">Active since</div>
-              <div class="col">{{ user.createdAt }}</div>
+              <div class="col">{{ humanDate user.createdAt }}</div>
             </div>
           </p>
         </div>

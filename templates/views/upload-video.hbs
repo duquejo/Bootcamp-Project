@@ -1,6 +1,6 @@
 {{> header }}
 <!-- Main content -->
-<div class="main-content col-9 mb-5">
+<div class="main-content container">
 
   <h2 class="mb-4">Upload video</h2>
 
@@ -12,19 +12,27 @@
   <form id="form-upload">
 
     <!-- Video name -->
-    <div class="mb-3">
-      <label for="form-name" class="form-label">Video name</label>
+    <div class="mb-4">
+      <label for="form-name" class="form-label">Video name <small class="text-danger">*</small></label>
       <input type="text" class="form-control" id="form-name" name="form-name" aria-describedby="nameHelp" placeholder="Your new video name" required>
     </div>
 
     <!-- Video Source -->
-    <div class="mb-3">
-      <label for="form-url" class="form-label">Video Source</label>
-      <input type="file" class="form-control" id="form-url" name="form-url" aria-describedby="videoSource" accept="video/*" required/>
-    </div>  
+    <div class="row mb-4">
+      <label for="form-url" class="form-label">Video Source <small class="text-danger">*</small></label>
+      <div class="col-12 mb-2">
+        <figure>
+          <video id="preview" class="ratio ratio-16x9 rounded" title="Video preview" controls></video>
+          <figcaption class="form-text text-md-end text-start fst-italic">Video preview</figcaption>
+        </figure>
+      </div>
+      <div class="col-12">
+        <input type="file" class="form-control" id="form-url" name="form-url" aria-describedby="videoSource" accept="video/*" required/>
+      </div>
+    </div>
 
     <!-- Category -->
-    <div class="mb-3" aria-describedby="categorySelectHelp">
+    <div class="tags-container mb-4" aria-describedby="categorySelectHelp" required>
         {{#each tags }}
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="form-check-{{ _id }}" name="form-category" value="{{ name }}">
@@ -35,10 +43,10 @@
     </div>
 
     <!-- New Category -->
-    <div class="mb-3">
+    <div class="mb-4">
       <label class="form-label" for="form-new-category">New categories</label>
-      <input type="text" name="form-new-category" id="form-new-category" class="form-control" aria-describedby="newCategoryHelp"/>
-      <div id="newCategoryHelp" class="form-text">Add new categories for your video, for multiple, separate it by commas</div>
+      <div id="newCategoryHelp" class="form-text">Add new categories for the video, if you want to attach multiple categories, separate it by commas</div>      
+      <input type="text" name="form-new-category" id="form-new-category" class="form-control" aria-describedby="newCategoryHelp" placeholder="Sports, Action, Lifestyle, Dating"/>
     </div>
 
     <!-- Submit video -->

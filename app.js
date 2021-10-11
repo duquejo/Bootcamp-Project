@@ -5,11 +5,12 @@
  * 
  * SERVER SETTINGS
  */
-const express        = require('express');
-const http           = require('http');
-const path           = require('path');
-const sassMiddleware = require('node-sass-middleware');
-const hbs            = require('hbs');
+const express                = require('express');
+const http                   = require('http');
+const path                   = require('path');
+const sassMiddleware         = require('node-sass-middleware');
+const hbs                    = require('hbs');
+const { fromNow, humanDate } = require('./src/utils/hbsHelpers');
 
 /**
  * DATABASE METHODS
@@ -38,6 +39,7 @@ const port = process.env.APP_PORT || 3000;
  * SITE PATHS
  */
 const publicDirectoryPath = path.join( __dirname, './public' );
+const npmDirectoryPath    = path.join( __dirname, './node_modules' );
 const destDirectoryPath   = path.join( __dirname, './public/css' );
 const srcDirectoryPath    = path.join( __dirname, './public/scss' );
 const viewsPath           = path.join( __dirname, './templates/views' );
@@ -52,7 +54,8 @@ app.set( 'views', viewsPath );
 /**
  * HBS HELPERS & CONFIG
  */
-hbs.registerHelper('ifTrue', ( arg1 ) => arg1 == false ? 'sb-sidenav-toggled' : '' );
+hbs.registerHelper('fromNow', fromNow );
+hbs.registerHelper('humanDate', humanDate );
 hbs.registerPartials( partialsPath );
 
 /**
@@ -70,7 +73,12 @@ app.use( sassMiddleware({
   prefix: '/css',
   // debug: true
 }));
+
+/**
+ * Serve app static routes directories
+ */
 app.use( express.static( publicDirectoryPath ) );
+app.use( express.static( npmDirectoryPath ) );
 
 /**
  * Configure Express to automatically parse JSON as objects
@@ -96,11 +104,8 @@ http.createServer(app).listen( port, () => {
 
 /**
  * @todo List
- * 
- * Check form validations
  * Users management
  * Users avatar
- * Add more routes to frontend (delete etc.)
  * Responsiveness
  * Testing
  */

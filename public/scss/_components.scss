@@ -5,20 +5,58 @@ a.card:hover {
   border-top: 0;
 }
 
-.main-content, .main-video-content{
-  margin-top: 5rem;
+.btn-primary {
+  background-color: $indigo;
+  border-color: $indigo-400;
+  &:hover{
+    background-color: $indigo-400;
+  }
 }
 
+.card{
+  .image-container{
+    &:before{
+      content: '';
+      background: #212529;
+      opacity: 0.5;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      position: absolute;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+    }
+    .play{
+      color: #fff;
+      z-index: 2;
+      font-size: 50px;
+    }
+    &:hover{
+      &:before{
+        background: transparent;
+        transition: all 0.3s ease-out;
+      }
+      .play{
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+      }
+    }
+  }
+}
+
+.main-content, .main-video-content{
+  margin: 5rem auto;
+}
 .main-video-content{
   .main-content{
     margin-top: 0;
   }
 }
-
 .main-content, .suggested-video{
   a{
     color: #212529;
     text-decoration: none;
+    position: relative;
   }
 }
 
@@ -99,7 +137,7 @@ a.card:hover {
   left: -5px;
   top: 2px;
   display: inline-block;
-  padding: 0px 1px;
+  padding: 0px 6px;
   .btn-labeled {
     padding-top: 0;
     padding-bottom: 0;
@@ -128,9 +166,10 @@ a.card:hover {
   }
 }
 
-.meta-content{
+.tags-content{
   .badge{
-    transition: background 0.1s ease-in;
+    transition: background 0.1s ease-in; 
+    text-transform: capitalize;
     &:hover{
       background: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
       a{

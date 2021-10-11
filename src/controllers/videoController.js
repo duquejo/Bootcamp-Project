@@ -50,7 +50,7 @@ class VideoController {
         .on('error', err => reject( `An error happened: ${ err.message }` ))
         .takeScreenshots({ 
           count: 1, 
-          timestamps: [ '50%' ], // At the middle of the video
+          timestamps: [ '00:00:000' ],
           size: '390x260',
           filename: '%b_thumb.png' 
         }, path.join( process.env.UPLOADS_DIR, '/thumbnails' ));

@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', event => {
     if( toggle && nav && bodypd && headerpd ){
       toggle.addEventListener('click', () => {
       // show navbar
-      nav.classList.toggle('show')
+      nav.classList.toggle('show-bar')
       // change icon
       toggle.classList.toggle('bi-x')
       // add padding to body
@@ -55,6 +55,8 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 
+
+
 window.onload = function () {
   
   /**
@@ -64,52 +66,75 @@ window.onload = function () {
 
   if( $formUpload ){
 
-    hyperform($formUpload);
-    // let pristine = new Pristine( $formUpload );
+    hyperform($formUpload); // Form Validation
 
-    $formUpload.addEventListener('submit', (e) => {
+    $formUpload.addEventListener('submit', e => {
+
       e.preventDefault();
-  
-      // const valid = pristine.validate(); // returns true or false
-      // if ( valid ) {
         
-        const $formName = $formUpload.querySelector('input[name="form-name"]');
-        const $formUrl  = $formUpload.querySelector('input[name="form-url"]');
-        const $formCategory  = $formUpload.querySelectorAll('input[name="form-category"]:checked');
-        const $formNewCategories = $formUpload.querySelector('input[name="form-new-category"]');
-    
-        /**
-         * Build Initial Category Array from created cats
-         */
-        let catArr1 = [];
-        $formCategory.forEach( cat => catArr1.push( cat.value ) );
-    
-        /**
-         * Build new Categories Structure
-         */
-        const catArr2 = $formNewCategories.value.split(',').map( cat => cat.trim() );
-    
-        /**
-         * Concat array structures (Unique elements)
-         */
-        const categoriesArray = [ ...new Set( [...catArr1, ...catArr2 ] ) ];
-    
-        var formData = new FormData();
-        formData.append( 'name', $formName.value.trim() );
-        formData.append( 'url', $formUrl.files[0] );
-        formData.append( 'tags', categoriesArray.join(',') );
-    
-        fetch( '/api/v1/video', {
-          method: 'POST',
-          body: formData
-        }).then( response => {
-          if( response.ok == true && response.status == '201' ) {
-            $formUpload.reset();
-            showMessage( 'The video has been uploaded successfully!', 'alert-success', 'bi-check-circle-fill' );
-          } else {
-            showMessage( 'Something happened, check it and retry again.', 'alert-danger', 'bi-x-circle-fill' );
-          }
-        });
+      const $formName = $formUpload.querySelector('input[name="form-name"]');
+      const $formUrl  = $formUpload.querySelector('input[name="form-url"]');
+      const $formCategory  = $formUpload.querySelectorAll('input[name="form-category"]:checked');
+      const $formNewCategories = $formUpload.querySelector('input[name="form-new-category"]');
+  
+      /**
+       * Build Initial Category Array from created cats
+       */
+      let catArr1 = [];
+      $formCategory.forEach( cat => catArr1.push( cat.value ) );
+  
+      /**
+       * Build new Categories Structure
+       */
+      const catArr2 = $formNewCategories.value.split(',').map( cat => cat.trim() );
+  
+      /**
+       * Concat array structures (Unique elements)
+       */
+      const categoriesArray = [ ...new Set( [...catArr1, ...catArr2 ] ) ];
+  
+      var formData = new FormData();
+      formData.append( 'name', $formName.value.trim() );
+      formData.append( 'url', $formUrl.files[0] );
+      formData.append( 'tags', categoriesArray.join(',') );
+  
+      fetch( '/api/v1/video', {
+        method: 'POST',
+        body: formData
+      }).then( response => {
+        if( response.ok == true && response.status == '201' ) {
+          $formUpload.reset();
+          showMessage( 'The video has been uploaded successfully!', 'alert-success', 'bi-check-circle-fill' );
+        } else {
+          showMessage( 'Something happened, check it and retry again.', 'alert-danger', 'bi-x-circle-fill' );
+        }
+      });
+    });
+
+    const $inputUrl = $formUpload.querySelector('#form-url');
+    $inputUrl.addEventListener('change', e => {
+
+      
+      const $video = $formUpload.querySelector('#preview');
+      let videoSource = e.target.files;
+      console.log( videoSource)
+
+      if( videoSource.length == 0 ) return;
+
+      const videoSourceBlob = URL.createObjectURL( videoSource[0] );      
+      
+      if( $video.children.length == 0 ){
+        const source = document.createElement('source');
+        source.setAttribute('src', videoSourceBlob );
+        $video.appendChild(source);
+      } else {
+        const source = $video.getElementsByTagName('source')[0];
+        source.setAttribute('src', videoSourceBlob );
+      }
+
+      $video.load();
+      $video.play();
+
     });
   
     const showMessage = ( message, alertClass, iconClass ) => {
@@ -164,7 +189,8 @@ window.onload = function () {
               });
             }
           }).catch( err => {
-            console.log( err.message );
+            console.error( err.message );
+            $searchResults.innerHTML = '<span class="list-group-item small">No results</span>';
           });
         } else {
           $searchResults.innerHTML = '<span class="list-group-item small">Please search more than 3 characters</span>';
@@ -233,8 +259,16 @@ window.onload = function () {
 
           // Manage response
           const response = getApiCall( url )
-            .then( videos => fetchVideosList( videos ) )
-            .catch( err => console.error( `Something happened ${ err }` ) );
+            .then( videos => {
+              fetchVideosList( videos );
+            })
+            .catch( ( { status, statusText } ) => {
+              if( status == 404 ) { 
+                document.querySelector('.main-content  .video-grid' ).innerHTML = '<p class="fst-italic">Not found videos with this tag</p>';
+              } else {
+                console.error( `Something happened ${ statusText }`);
+              }
+            });
         }, 1000 );
       });
     })
@@ -246,20 +280,21 @@ window.onload = function () {
  */
 const getApiCall = async ( url, params = {} ) => {
     const response = await fetch( url, params );
-    if ( !response.ok ) return false;
+    if ( !response.ok ) throw { status: response.status, statusText: response.statusText };
     const data = await response.json();
     return data;
 };
 
+/**
+ * Fetch videos lists
+ */
 const fetchVideosList = ( videos ) => {
 
   const $mainContent  = document.querySelector('.main-content' );
   const $videoGrid    = $mainContent.querySelector('.video-grid');
   const $videoCounter = $mainContent.querySelector('h2.video-grid-title small');
 
-  console.log( $mainContent, $videoCounter );
-
-  if( $videoGrid ){
+  if( $videoGrid && videos.length ){
 
     $videoGrid.innerHTML = '';
     let htmlContent = videos.map( video => {
@@ -270,15 +305,19 @@ const fetchVideosList = ( videos ) => {
         video.tags.map( tag => badgeContent += `<span class="badge rounded-pill bg-dark">${ tag }</span>` );
       }
 
-      return `<div class="card border-0 col-sm-6 col-lg-4 mb-3">
-                <a href="/video/${ video._id }">
-                  <img src="/images/test.jpg" class="card-img-top rounded-top" alt="...">
+      return `<div class="card border-0 col-sm-6 col-lg-3 mb-3">
+                <a class="image-container" href="/video/${ video._id }">
+                  <div class="play position-absolute top-50 start-50 translate-middle"><i class="bi bi-play-circle animate__animated animate__fadeInDown"></i></div>
+                  <img src="/uploads/thumbnails/${ video.thumbnail }" class="card-img-top rounded-top"  alt="${ video.name } thumbnail">
                 </a>                  
                 <div class="card-body">
                   <div class="tags-content mb-3">${ badgeContent }</div>
                   <div class="card-title mb-0"><a href="/video/${ video._id }">${ video.name }</a></div>
                   <p class="card-text mb-0 small"><a href="/user/${ video.owner.username }">${ video.owner.name }</a></p>
-                  <p class="likes-content small"><i class="bi bi-heart-fill"></i><span class="ms-2">${ video.likes } likes</span></p>
+                  <div class="row mt-2">
+                    <p class="likes-content small col-md-6 col-12 text-center"><i class="bi bi-heart-fill"></i><span class="ms-2">${ video.likes } likes</span></p>
+                    <p class="small col-md-6 col-12 text-end fw-light fst-italic">${ moment( video.createdAt ).fromNow() }</p>
+                  </div>
                 </div>
               </div>`;
     });
