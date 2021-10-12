@@ -49,7 +49,7 @@
 ```
 
 ## It's Chilltime .env config
-As I said in the first section, The app has a .env config support, for the dev/production config you need to follow this steps.
+As I said in the first section, the app has a .env config support... So, if you want to run locally/our server this project, you need to follow this steps first.
 
 1. Install NPM dependencies & development dependencies. `npm i` (You need to have installed Node in the host server).
 2. Copy the .env.example file located in `src/config/` directory.
@@ -61,15 +61,16 @@ As I said in the first section, The app has a .env config support, for the dev/p
 
 APP_PORT= Express Listening Port
 
-MONGODB_URL= MongoDB URL, with leading mongodb:// config string.
-MONGODB_USER= MongoDB User 
-MONGODB_PASSWORD= MongoDB Password
+MONGODB_URL= "MongoDB URL, with leading mongodb:// config string."
+MONGODB_USER= "MongoDB User "
+MONGODB_PASSWORD= "MongoDB Password"
 
-UPLOADS_DIR= Public Uploads directory It's recommended to use the default public/uploads value.
+UPLOADS_DIR= "I recommended you to use the default public/uploads value."
 
 ```
-4. If you want to run tests, create a new .env file with the name `test.env` name.
-5. Execute `npm run dev` or `npm run test` for quick development/testing deployment.
+4. If the `public/uploads` _videos_ and _thumbnails_ directories are not created, please create them :) "I will fix that later".
+5. If you want to run tests, create a new .env file with the name `test.env` name.
+6. Execute `npm run dev` or `npm run test` for quick development/testing deployment.
 
 ## Notes about *ffmpeg* and *ffprobe*
 
@@ -82,3 +83,16 @@ This video codecs are supported in my app, I'm using this for the auto video thu
 - Video quick view (Like a gif or short video) support.
 
 The 'fmpeg-static' and 'ffprobe-static' dependencies enable the native support for quickly implementation. It will analize the current OS and will install the best option.
+
+## Future updates/improvements
+
+- Users management.
+- Users login/logout, sessions, etc.
+- User avatar uploading support.
+- Encode User Passwords.
+- Use JWT or other method for user sessions tokenization.
+- Video Standarization.
+- Quick Peek Video support (Like youtube).
+- Refactor Categories & Videos model relationship.
+- Tests coverage over 100%.
+- Commenting system support.
