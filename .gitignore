@@ -103,8 +103,8 @@ dist
 .tern-port
 
 # Server videos & thumbnails
-videos/
-thumbnails/
+videos/**
+thumbnails/**
 
 # CSS final file (It's generated in render time)
 style.css
