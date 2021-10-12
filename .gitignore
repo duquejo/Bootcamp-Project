@@ -112,4 +112,4 @@ style.css
 # Temporary directories
 backup/
 
-**.DS_Store
+*.DS_Store
