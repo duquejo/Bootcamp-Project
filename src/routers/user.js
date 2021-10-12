@@ -8,7 +8,6 @@
  const express          = require('express');
  const User             = require('../models/User');
  const Video             = require('../models/Video');
- const userMiddleware   = require('../middleware/user');
  const router           = express.Router();
 
 /**
@@ -22,17 +21,10 @@ router.post('/user', async ( req, res ) => {
 
   try {
     await user.save();
-    res.status(201).send();
+    res.status(201).send({ user });
   } catch (e) {
     res.status(400).send(e.message);
   }
-});
-
-/**
- * My profile
- */
-router.get('/profile/me', userMiddleware, async ( req, res ) => {
-  res.send( req.user );
 });
 
 /**
@@ -60,28 +52,12 @@ router.get('/user/:username', async (req, res) => {
       owner: req.params.id
     });
 
-    if( ! videos ) return res.status(404).send();
+    if( ! videos || videos.length === 0 ) return res.status(404).send();
+    
     res.send(videos);
   } catch (e) {
     res.status(500).send(e);
   }
 });
-
-/**
- * Get my videos
- */
- router.get('/profile/videos', userMiddleware, async (req, res) => {
-  await req.user.populate('videos');
-  res.send( req.user.videos );
-});
-
-
-/**
- * Create user (done)
- * Get my profile (done)
- * Delete user (maybe)
- * List users (maybe)
- * Auth users (X)
- */
 
 module.exports = router;

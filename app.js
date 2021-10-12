@@ -102,10 +102,4 @@ http.createServer(app).listen( port, () => {
   console.log(`Server started on port ${ port }`);
 });
 
-/**
- * @todo List
- * Users management
- * Users avatar
- * Responsiveness
- * Testing
- */
+module.exports = app;

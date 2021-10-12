@@ -2,7 +2,7 @@
   "name": "practice1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
     "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs",

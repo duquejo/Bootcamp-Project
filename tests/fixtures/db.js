@@ -26,6 +26,7 @@ const Category = require('../../src/models/Category');
 const userDemo1 = {
     _id: new mongoose.Types.ObjectId(),
     name: 'Juan Pérez',
+    username: 'juanpe',
     email: 'juan@demo.com',
     password: 'juanDemo123*'
 };
@@ -33,6 +34,7 @@ const userDemo1 = {
 const userDemo2 = {
     _id: new mongoose.Types.ObjectId(),
     name: 'Martina Domínguez',
+    username: 'mar321',
     email: 'martina@demo.com',
     password: 'mar123¿?'
 };
@@ -70,7 +72,7 @@ const video1 = {
     thumbnail: 'education_thumb.png',
     likes: 0,
     tags: [ cat1, cat2, cat3, cat4 ],
-    owner: userDemo1
+    owner: userDemo1._id
 };
 
 const video2 = {
@@ -80,7 +82,7 @@ const video2 = {
     thumbnail: 'car_thumb.png',
     likes: 0,
     tags: [ cat1, cat3 ],
-    owner: userDemo2
+    owner: userDemo1._id
 };
 
 const setupDatabase = async () => {
