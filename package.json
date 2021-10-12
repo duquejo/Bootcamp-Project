@@ -1,7 +1,7 @@
 {
-  "name": "practice1",
+  "name": "itschilltimeapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "NodeJS Bootcamp custom project - Developed as a Youtube's replica",
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
