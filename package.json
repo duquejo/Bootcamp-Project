@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs"
+    "start": "node src/app.js",
+    "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs",
+    "test": "env-cmd -f ./src/config/test.env jest --watch --runInBand"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +27,8 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "nodemon": "^2.0.13"
+    "jest": "^27.2.5",
+    "nodemon": "^2.0.13",
+    "supertest": "^6.1.6"
   }
 }
