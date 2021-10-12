@@ -1,4 +1,6 @@
-## Welcome to my Node JS Final Project! (It's chilltime v0.0.1)
+# Welcome to my Node JS Final Project!
+## It's chilltime 
+*Version:* v1.0.0
 
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 [![made-with-nodejs](https://img.shields.io/badge/Made_with-Node_JS-green.svg)](https://nodejs.org/es/)
@@ -7,25 +9,25 @@
 ## Project dependencies and development dependencies
 
 - *Dependencies*
-  - axios (0.22.0): HTTP REST Client for the frontend requests.
-  - bootstrap (5.1.2): Frontend framework for quickly sites building (Mobile-first, responsive).
-  - express (4.17.1): Server management module.
-  - ffmpeg-static (4.4.0): Static _ffmpeg_ dependencies based in the host OS.
-  - ffprobe-static (3.0.0): Static _ffprobe_ dependencies based in the host OS.
-  - fluent-ffmpeg (2.1.2): A fluent ffmpeg API for video manipulation and processing.
-  - hbs (4.1.2): Handlebars mustache template frontend system.
-  - moment (2.29.1): Time manipulation and datatime management library.
-  - mongodb (4.1.2): Documental JSON Database (NoSQL)
-  - mongoose (6.0.8): MongoDB speciallized ODM library.
-  - multer (1.4.3): File handling/Uploading module. 
-  - node-sass-middleware (0.11.0): Node JS middleware for compiling and building CSS through SASS/SCSS files.
-  - validator (13.6.0): Allows backend to manage complex validations.
+  - *axios* (0.22.0): HTTP REST Client for the frontend requests.
+  - *bootstrap* (5.1.2): Frontend framework for quickly sites building (Mobile-first, responsive).
+  - *express* (4.17.1): Server management module.
+  - *ffmpeg-static* (4.4.0): Static _ffmpeg_ dependencies based in the host OS.
+  - *ffprobe-static* (3.0.0): Static _ffprobe_ dependencies based in the host OS.
+  - *fluent-ffmpeg* (2.1.2): A fluent ffmpeg API for video manipulation and processing.
+  - *hbs* (4.1.2): Handlebars mustache template frontend system.
+  - *moment* (2.29.1): Time manipulation and datatime management library.
+  - *mongodb* (4.1.2): Documental JSON Database (NoSQL)
+  - *mongoose* (6.0.8): MongoDB speciallized ODM library.
+  - *multer* (1.4.3): File handling/Uploading module. 
+  - *node-sass-middleware* (0.11.0): Node JS middleware for compiling and building CSS through SASS/SCSS files.
+  - *validator* (13.6.0): Allows backend to manage complex validations.
 
 - *Development dependencies*
-  - env-cmd: (10.1.0): Enviroment variables module.
-  - jest: (27.2.5): Node JS Testing suite with mocking support.
-  - nodemon (2.0.13): Server demon for file changes listening and live server updating.
-  - supertest: (6.1.6): Boosts Jest with asyncronous tasks and more HTTP Request testing support.
+  - *env-cmd*: (10.1.0): Enviroment variables module.
+  - *jest*: (27.2.5): Node JS Testing suite with mocking support.
+  - *nodemon* (2.0.13): Server demon for file changes listening and live server updating.
+  - *supertest*: (6.1.6): Boosts Jest with asyncronous tasks and more HTTP Request testing support.
 
 ### Quick links for the Node JS Bootcamp memories & public projects.
 - [Bootcamp memories Hub](https://github.com/duquejo01/BootCamp-Node-JS)
@@ -92,6 +94,7 @@ The 'fmpeg-static' and 'ffprobe-static' dependencies enable the native support f
 - Encode User Passwords.
 - Use JWT or other method for user sessions tokenization.
 - Video Standarization.
+- Video Optimization.
 - Quick Peek Video support (Like youtube).
 - Refactor Categories & Videos model relationship.
 - Tests coverage over 100%.
