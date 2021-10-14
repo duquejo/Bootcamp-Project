@@ -57,7 +57,10 @@ router.post( '/login', async ( req, res, next ) => {
     const user  = await User.findByCredentials( login, password ); // Static Model Method
     const token = await user.generateAuthToken(); // Revoke actual user session and set a new one.
     
-    res.cookie( 'access_token', token ).send({ user });
+    res.cookie( 'access_token', token, {
+      secure: process.env.NODE_ENV !== "development",
+      httpOnly: true
+    }).send({ user });
 
   } catch (e) {
     res.statusMessage = e.message;

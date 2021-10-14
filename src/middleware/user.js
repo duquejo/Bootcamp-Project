@@ -9,7 +9,6 @@
 const jwt      = require('jsonwebtoken');
 const User     = require('../models/User');
 const url      = require('url');
-const { ifError } = require('assert');
 
 const userMiddleware = async ( req, res, next ) => {
 

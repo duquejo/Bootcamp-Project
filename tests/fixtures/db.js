@@ -6,12 +6,14 @@
  * @requires User model
  * @requires Video model
  * @requires Category model
+ * @requires jwt
  * 
  */
 const mongoose = require('mongoose');
 const User     = require('../../src/models/User');
 const Video    = require('../../src/models/Video');
 const Category = require('../../src/models/Category');
+const jwt      = require('jsonwebtoken');
 
 /**
  * 
@@ -19,24 +21,29 @@ const Category = require('../../src/models/Category');
  * 
  */
 
+const userDemo1Id = new mongoose.Types.ObjectId();
+const userDemo2Id = new mongoose.Types.ObjectId();
+
 /**
  * 
  * @model Users
  */
 const userDemo1 = {
-    _id: new mongoose.Types.ObjectId(),
+    _id: userDemo1Id,
     name: 'Juan Pérez',
     username: 'juanpe',
     email: 'juan@demo.com',
-    password: 'juanDemo123*'
+    password: 'juanDemo123*',
+    token: jwt.sign({ _id: userDemo1Id }, process.env.JWT_SECRET )
 };
 
 const userDemo2 = {
-    _id: new mongoose.Types.ObjectId(),
+    _id: userDemo2Id,
     name: 'Martina Domínguez',
     username: 'mar321',
     email: 'martina@demo.com',
-    password: 'mar123¿?'
+    password: 'mar123¿?',
+    token: jwt.sign({ _id: userDemo2Id }, process.env.JWT_SECRET )
 };
 
 /**

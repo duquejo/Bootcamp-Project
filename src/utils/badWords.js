@@ -2,6 +2,8 @@
  * 
  * Platform users management
  * Badwords filter
+ * 
+ * @note Sorry mom!, I made this for the science!
  */
 
 const badWords = [
