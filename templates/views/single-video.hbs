@@ -3,7 +3,7 @@
 <!-- Main Single Video Container -->
 <div class="main-video-content mb-4 row">
   <!-- Main content -->
-  <div id="single-video" class="main-content col-9">
+  <div id="single-video" class="main-content col-12 col-md-9">
     <div class="row">
       <div class="col-12">
 
@@ -14,7 +14,7 @@
         </video>
 
         <!-- Tags -->
-        <div class="meta-content d-flex flex-row justify-content-between mt-3">
+        <div class="meta-content d-flex flex-row justify-content-center justify-content-md-between flex-wrap flex-md-nowrap mt-3">
           <div class="tags-content">
             {{#if video.tags.length }}
               <!-- Tags -->
@@ -25,7 +25,7 @@
               {{>badge "uncategorized"}}
             {{/if}}
           </div>
-          <div class="actions-content">
+          <div class="actions-content mt-2 mt-md-0">
             <a class="btn-labeled" href="/uploads/videos/{{ video.url }}" title="Click for video download" download="{{ video.name }}"> 
               <i class="bi bi-cloud-arrow-down-fill"></i><small class="ms-2">Download</small>
             </a>          
@@ -38,13 +38,13 @@
         <!-- Title -->
         <h3 class="mt-3">{{ video.name }}</h3>
         <p class="card-text small">{{fromNow video.createdAt }}</p>
-        <p class="card-text">{{ video.owner.name }}</p>
+        <p class="card-text"><b>Author: </b>{{ video.owner.name }}</p>
       </div>
     </div>
   </div>
 
   <!-- Suggested video -->
-  <div class="suggested-video col">
+  <div class="suggested-video col-12 col-md">
     <h2 class="mb-4">Recent videos</h2>
     <div class="row">
         <div class="card border-0">

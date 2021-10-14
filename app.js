@@ -11,6 +11,7 @@ const path                   = require('path');
 const sassMiddleware         = require('node-sass-middleware');
 const hbs                    = require('hbs');
 const { fromNow, humanDate } = require('./src/utils/hbsHelpers');
+const cookieParser           = require('cookie-parser');
 
 /**
  * DATABASE METHODS
@@ -84,6 +85,8 @@ app.use( express.static( npmDirectoryPath ) );
  * Configure Express to automatically parse JSON as objects
  */
 app.use( express.json() );
+app.use( express.urlencoded({ extended: true }));
+app.use( cookieParser() );
 
  /**
   * Using custom route handlers
@@ -93,7 +96,6 @@ app.use( '/api/v1', videoRouter, userRouter, categoryRouter );
 
 // Public Wrapper /
 app.use( appRouter );
-// app.use( videoRouter, userRouter, categoryRouter, appRouter );
 
 /**
  * Server listening

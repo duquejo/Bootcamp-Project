@@ -28,7 +28,7 @@ const videoSchema = new mongoose.Schema({
   },
   tags: {
     type: Array,
-    ref: 'Category' // Reference between Category and Video
+    ref: 'Category' // Reference between Category (by name) and Video
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
