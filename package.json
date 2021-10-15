@@ -1,10 +1,11 @@
 {
-  "name": "itschilltimeapp", 
-  "version": "1.0.0",
+  "name": "itschilltimeapp",
+  "version": "1.1.0",
   "description": "NodeJS Bootcamp custom project - Developed as a Youtube's replica",
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
+    "seed": "env-cmd -f ./src/config/.env node ./src/utils/seed.js",
     "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs",
     "test": "env-cmd -f ./src/config/test.env jest --watch --runInBand"
   },

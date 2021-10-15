@@ -50,6 +50,7 @@
   ...
   "scripts": {
     "start": "node src/app.js",
+    "seed": "env-cmd -f ./src/config/.env node ./src/utils/seed.js",
     "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs",
     "test": "env-cmd -f ./src/config/test.env jest --watch --runInBand"
   },
@@ -59,26 +60,49 @@
 As I said in the first section, the app has a .env config support... So, if you want to run locally/our server this project, you need to follow this steps first.
 
 1. Install NPM dependencies & development dependencies. `npm i` (You need to have installed Node in the host server).
-2. Copy the .env.example file located in `src/config/` directory.
+2. Copy/paste the .env.example file located in `src/config/` directory and rename it as `.env`
 3. Complete the following fields:
 
 ```.env
 
 # Server variables
 
-APP_PORT= Express Listening Port
+APP_PORT="Express Listening Port"
 
-MONGODB_URL= "MongoDB URL, with leading mongodb:// config string."
-MONGODB_USER= "MongoDB User"
-MONGODB_PASSWORD= "MongoDB Password"
+MONGODB_URL="MongoDB URL, with leading mongodb:// config string."
+MONGODB_USER="MongoDB User"
+MONGODB_PASSWORD="MongoDB Password"
 
 UPLOADS_DIR= "It's recommended to use the default public/uploads value."
 
 ```
-4. If you want to run tests, create a new .env file with the name `test.env` name.
-5. If you want to run tests without removing the uploaded uploads, please configure `UPLOADS_DIR` in the `test.env` file. 
-6. Take care if you want to run the automated tests in the main dev/prod uploads directory, that's because the test tasks cleans the database and remove all files in the specified directories for each every executed test suite.
-7. Execute `npm run dev` or `npm run test` for quick development/testing deployment.
+4. Run `npm run seed` to populate the users and some categories in the MongoDB database. It will include a development user for you.
+5. Execute `npm run dev` for quick development deployment.
+
+## It's Chilltime test setup
+If you want to run the automated unit tests, continue with the following steps:
+
+1. Install NPM dependencies & development dependencies. `npm i` (You need to have installed Node in the host server).
+2. Copy/paste the .env.example file located in `src/config/` directory and rename it as `test.env`.
+3. Complete the following fields:
+
+```.env
+
+# Server variables
+
+APP_PORT="Express Listening Port, It's recommended to use 0"
+
+MONGODB_URL="MongoDB Test URL, with leading mongodb:// config string."
+MONGODB_USER="MongoDB User"
+MONGODB_PASSWORD="MongoDB Password"
+
+UPLOADS_DIR= "Check step 4"
+
+```
+
+4. If you want to run tests without removing the uploaded uploads, please configure `UPLOADS_DIR` in the `test.env` file. 
+5. Take care if you want to run the automated tests in the main dev/prod uploads directory, that's because these testing tasks clean the whole database constantly.
+6. Execute `npm run test` for quick testing deployment.
 
 ## Notes about *ffmpeg* and *ffprobe*
 
