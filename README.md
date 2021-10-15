@@ -55,11 +55,12 @@ The automated Node JS commands are _start_, _seed_, _dev_, and _test_:
     "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs",
     "test": "env-cmd -f ./src/config/test.env jest --watch --runInBand"
   },
-...	
-
-These commands have a reason in specific, the command `start` is for production purposes, `seed` is for first database and cleanse tasks, `dev` por development purposes, and `test` for running automated unit tests over the defined app routes.
+  ...
 
 ```
+
+These commands have a reason in specific, the command `start` is for production purposes, `seed` is for the first database run and also app cleanse tasks, `dev` por development purposes, and `test` for running automated unit tests over the defined app routes.
+
 ## It's Chilltime setup
 As I said in the first section, the app has a .env config support... So, if you want to run locally/our server this project, you need to follow this steps first.
 
