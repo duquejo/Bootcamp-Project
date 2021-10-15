@@ -78,6 +78,14 @@ UPLOADS_DIR= "It's recommended to use the default public/uploads value."
 ```
 4. Run `npm run seed` to populate the users and some categories in the MongoDB database. It will include a development user for you.
 5. Execute `npm run dev` for quick development deployment.
+6. Navigate over `http://localhost:3000` and try to login here: `http://localhost:3000/login` with this demo credentials:
+
+```
+Username: demo
+Email: jose@demo.com
+Password: demo123*
+```
+
 
 ## It's Chilltime test setup
 If you want to run the automated unit tests, continue with the following steps:
