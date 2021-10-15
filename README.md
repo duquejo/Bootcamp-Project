@@ -4,7 +4,7 @@
 
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 [![made-with-nodejs](https://img.shields.io/badge/Made_with-Node_JS-green.svg)](https://nodejs.org/es/)
-[![Project Version](https://img.shields.io/badge/Version-1.0.0-brightgreen)](https://github.com/duquejo01/Bootcamp-Project)
+[![Project Version](https://img.shields.io/badge/Version-1.1.0-brightgreen)](https://github.com/duquejo01/Bootcamp-Project)
 
 [![JWT Compatible](http://jwt.io/img/badge-compatible.svg)](https://jwt.io/)
 
@@ -45,6 +45,7 @@
 - [Chat App Demo (Frontend+Backend)](https://duque-chat-app.herokuapp.com/): Live Chat App Public Demo.
 
 ## Node JS _package.json_ config
+The automated Node JS commands are _start_, _seed_, _dev_, and _test_:
 
 ```sh
   ...
@@ -54,7 +55,10 @@
     "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs",
     "test": "env-cmd -f ./src/config/test.env jest --watch --runInBand"
   },
-  ...
+...	
+
+These commands have a reason in specific, the command `start` is for production purposes, `seed` is for first database and cleanse tasks, `dev` por development purposes, and `test` for running automated unit tests over the defined app routes.
+
 ```
 ## It's Chilltime setup
 As I said in the first section, the app has a .env config support... So, if you want to run locally/our server this project, you need to follow this steps first.
@@ -78,14 +82,14 @@ UPLOADS_DIR= "It's recommended to use the default public/uploads value."
 JWT_SECRET="Secret JWT Key String"
 
 ```
-4. Run `npm run seed` to populate the users and some categories in the MongoDB database. It will include a development user for you.
+4. Run `npm run seed` to populate the users and some categories collection in the MongoDB database. It will include a development user for you.
 5. Execute `npm run dev` for quick development deployment.
 6. Navigate over `http://localhost:3000` and try to login here: `http://localhost:3000/login` with this demo credentials:
 
 ```
-Username: demo
-Email: jose@demo.com
-Password: demo123*
+**Username**: demo
+**Email**: jose@demo.com
+**Password**: demo123*
 ```
 
 
@@ -118,7 +122,7 @@ JWT_SECRET="Secret JWT Key String"
 
 ## Notes about *ffmpeg* and *ffprobe*
 
-FFmpeg is the leading multimedia framework, able to decode, encode, transcode, mux, demux, stream, filter and play pretty much anything that humans and machines have created.
+> FFmpeg is the leading multimedia framework, able to decode, encode, transcode, mux, demux, stream, filter and play pretty much anything that humans and machines have created.
 
 This video codecs are supported in my app, I'm using this for the auto video thumbnail generation. But.. It can open up the possibilities to make a *LOT* of things with the uploaded videos:
 
