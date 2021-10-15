@@ -1,5 +1,5 @@
 {
-  "name": "itschilltimeapp",
+  "name": "itschilltimeapp", 
   "version": "1.0.0",
   "description": "NodeJS Bootcamp custom project - Developed as a Youtube's replica",
   "main": "app.js",
@@ -8,7 +8,7 @@
     "dev": "env-cmd -f ./src/config/.env nodemon ./app.js -e js,hbs",
     "test": "env-cmd -f ./src/config/test.env jest --watch --runInBand"
   },
-  "author": "",
+  "author": "José Duque",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.22.0",

@@ -8,11 +8,13 @@
  * @requires ffmpegPath // Node JS Integrated OS ffmpeg codec
  * @requires ffprobePath // Node JS Integrated OS ffprobe codec
  */
-const axios       = require('axios').default;
-const path        = require('path');
-const ffmpeg      = require('fluent-ffmpeg');
-const ffmpegPath  = require('ffmpeg-static');
-const ffprobePath = require('ffprobe-static');
+const axios          = require('axios').default;
+const path           = require('path');
+const ffmpeg         = require('fluent-ffmpeg');
+const ffmpegPath     = require('ffmpeg-static');
+const ffprobePath    = require('ffprobe-static');
+
+axios.defaults.baseURL = 'http://localhost:3000';
 
 class VideoController {
 
@@ -20,19 +22,19 @@ class VideoController {
 
   static async singleVideo( videoId ){
     try {
-      const response = await axios.get( `http://localhost:3000/api/v1/video/${ videoId }` );
+      const response = await axios.get(`/api/v1/video/${ videoId }` );
       return response.data;
     } catch (e) {
-      console.error(e);
+      // console.error(e.message);
     }
   }
 
   static async fetchVideos(){
     try {
-      const response = await axios.get( 'http://localhost:3000/api/v1/videos' );
+      const response = await axios.get(`/api/v1/videos` );
       return response.data;
     } catch (e) {
-      console.error(e);
+      // console.error(e.message);
     }
   }
 

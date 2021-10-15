@@ -1,6 +1,6 @@
 /**
  * 
- * Tests related to User methods
+ * Tests related to User routes
  * 
  * @requires jest
  * @requires supertest
@@ -12,6 +12,7 @@
  const request     = require('supertest');
  const app         = require('../app');
  const User        = require('../src/models/User');
+ const Video       = require('../src/models/Video');
  const WordFilter  = require('bad-words');
  const badWords    = require('../src/utils/badWords');
  const bcrypt      = require('bcryptjs');
@@ -21,15 +22,6 @@
 * Clean DB before tests
 */
 beforeEach( setupDatabase );
-
-/**
- * User Tests list
- * 1- Assert to create a new user
- * 2- Assert to find the newest user
- * 3- Assert to check a valid email
- * 4- Assert to find a user profile route
- * 5- 
- */
 
 /**
  * User tests
@@ -128,32 +120,76 @@ test( 'Should login a provided user', async () => {
   // Assert to have different cookies for both cases
   const cookieValue1 = response.get('Set-Cookie')[0];
   const cookieValue2 = response2.get('Set-Cookie')[0];
-
   const user1token = cookieValue1.match('(^|;)\\s*' + 'access_token' + '\\s*=\\s*([^;]+)')?.pop() || '';
   const user2token = cookieValue2.match('(^|;)\\s*' + 'access_token' + '\\s*=\\s*([^;]+)')?.pop() || '';
-
   expect( user1token ).not.toBe( user2token );
 
-  // Assert to navigate to a private area after login successfully
-  const response3 = await request(app)
+  // Assert to enable an user to navigate on profile area after a successfull login
+  await request(app)
     .get('/profile')
+    .set('Cookie', response.get('Set-Cookie')[0] )
+    .send().expect(200);
+
+  // Assert to enable an user to navigate on video upload area after a successfull login
+  await request(app)
+    .get('/upload')
     .set('Cookie', response.get('Set-Cookie')[0] )
     .send().expect(200);
 });
 
+/**
+ * Session tests (Not logged/unregistered)
+ */
 test( 'Should fail with a unregistered user', async () => {
 
-  // Assert to login with username
-  const response = await request(app)
-    .post('/api/v1/login')
-    .set('Content-Type', 'application/x-www-form-urlencoded')
+  // Assert to fail
+  await request(app).post('/api/v1/login').set('Content-Type', 'application/x-www-form-urlencoded')
     .send({
       login: 'joseduque',
       password: 'Test123+'
     }).expect(400);
+
+  // Assert to restrict access an unregistered user to a privated areas.
+  const response = await request(app).get('/profile').send().expect(302); // Redirection
+  const response2 = await request(app).get('/upload').send().expect(302); // Redirection
+  
+  // Assert to redirect a unregistered user to the login view
+  expect( response.get('location') ).toBe('/login');
+  expect( response2.get('location') ).toBe('/login');
+
+  // Assert to block an unregistered user to upload a video
+  await request(app).post('/api/v1/video').send({
+    name: 'Video test 3',
+    url: 'education.mp4',
+    tags: [ 'funny', 'cats', 'liberty', 'nodejs', 'programming' ]
+  }).expect(401);
+
+  // Assert to block an unregistered user to create a category
+  await request(app).post('/api/v1/tag').send({
+    name: 'Mountain'
+  }).expect(401);
+
+  // Assert to block an unregistered user to add a category to a existing video
+  await request(app).patch(`/api/v1/video/${ video1._id }/tags`).send([
+    'lifestyle', 'food', 'cars', 'planes', 'weedings'
+  ]).expect(401);
+
+  // Assert to block an unregistered user to add likes
+  await request(app).patch(`/api/v1/video/${ video1._id }/like`).send().expect(401);
+
+  const videoAlt = await Video.findById( video1._id ).select('likes');
+
+  // Assert to check if a unregistered blocked like request haven't altered the original value
+  expect( videoAlt.likes ).toBe( video1.likes );
+
+  // Assert to fail to logout a unregistered user
+  const response3 = await request(app).get('/logout').send().expect(302); // Redirection
+
+  // Assert to redirect to the login view after trying to logout a unregistered user.
+  expect( response3.get('location') ).toBe('/login');
 });
 
-test( 'Should retrieve the user profile', async () => {
+test( 'Should retrieve a public user profile', async () => {
   await request(app).get(`/api/v1/user/${ userDemo1.username }`).expect(200);
 });
 

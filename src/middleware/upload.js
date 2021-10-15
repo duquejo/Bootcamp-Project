@@ -12,14 +12,17 @@ const storage = multer.diskStorage({
   },
   filename: ( req, file, cb ) => {
     cb( null, `${ Date.now() }${ path.extname( file.originalname )}` );
-  },
-  // fileFilter( req, file, cb ) {
-  //   if( !file.originalname.match( /\.(mp4|mov|avi|wmv|mkv|oog|wma)$/ ) ) 
-  //     return cb( new Error('Please upload a valid video file.') );
-  //   cb( undefined, true );
-  // }
+  }
 });
 
-const upload = multer({ storage }).single('url');
+const upload = multer({ 
+  storage,
+  fileFilter( req, file, cb ) {
+    if( !file.originalname.match( /\.(mp4|mov|avi|wmv|mkv|oog|wma|webm)$/ ) ) {
+      return cb( new Error('Please upload a valid video file.') );
+    }
+    cb( undefined, true );
+  } 
+}).single('url');
 
 module.exports = upload;

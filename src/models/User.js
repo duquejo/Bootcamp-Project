@@ -40,9 +40,6 @@ const userSchema = new mongoose.Schema({
       const filter = new WordsFilter(); // Default words list
       filter.addWords( ...badwordsArray );
       if( filter.isProfane( username ) ) throw new Error('Your username is invalid, try another one, please.'); 
-      /**
-       * @todo check!
-       */
     }
   },
   password:{

@@ -104,4 +104,4 @@ http.createServer(app).listen( port, () => {
   console.log(`Server started on port ${ port }`);
 });
 
-module.exports = app;
+module.exports = app; // Jest requirement.

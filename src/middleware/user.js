@@ -11,8 +11,6 @@ const User     = require('../models/User');
 const url      = require('url');
 
 const userMiddleware = async ( req, res, next ) => {
-
-  console.log('Auth middleware');
   
   /**
    * Getting session cookie
