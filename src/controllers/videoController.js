@@ -47,7 +47,7 @@ class VideoController {
 
     return new Promise( ( resolve, reject ) => {
       try {
-        var proc = ffmpeg( path.join( process.env.UPLOADS_DIR, '/videos', videoSrc ))
+        var proc = ffmpeg( path.join( process.env.UPLOADS_DIR || 'public/uploads', '/videos', videoSrc ))
         .on('filenames', filenames => resolve( filenames ))
         .on('error', err => reject( `An error happened: ${ err.message }` ))
         .takeScreenshots({ 
@@ -55,7 +55,7 @@ class VideoController {
           timestamps: [ '00:00:000' ],
           size: '390x260',
           filename: '%b_thumb.png' 
-        }, path.join( process.env.UPLOADS_DIR, '/thumbnails' ));
+        }, path.join( process.env.UPLOADS_DIR || 'public/uploads', '/thumbnails' ));
       } catch (e) {
         reject( e );
       }
