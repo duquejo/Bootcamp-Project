@@ -1,3 +1,5 @@
+
+
 window.addEventListener('DOMContentLoaded', event => {
 
   // Toggle the side navigation
@@ -58,7 +60,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
 
 window.onload = function () {
-  
+
   /**
    * Form Upload conditions
    */
@@ -119,7 +121,6 @@ window.onload = function () {
       
       const $video = $formUpload.querySelector('#preview');
       let videoSource = e.target.files;
-      // console.log( videoSource)
 
       if( videoSource.length == 0 ) return;
 
@@ -139,25 +140,6 @@ window.onload = function () {
 
     });
   
-    const showMessage = ( message, alertClass, iconClass ) => {
-      const $formMessage = document.querySelector('.form-upload-messages');
-  
-      $formMessage.classList.add('animate__animated', 'animate__fadeIn', 'd-flex');
-      $formMessage.querySelector('span').textContent = message;
-      $formMessage.classList.add( alertClass );
-      $formMessage.querySelector('i').classList.add( iconClass );
-  
-      // Animate message
-      setTimeout( () => {
-        $formMessage.classList.remove('animate__fadeIn');
-        $formMessage.classList.add('animate__fadeOut');
-        $formMessage.addEventListener('animationend', () => {
-          $formMessage.classList.remove('d-flex');
-        });
-      }, 5000 );
-  
-      return false;
-    };
   }
 
 
@@ -211,14 +193,19 @@ window.onload = function () {
     $likesCount.addEventListener('click', (e) => {
       let videoId = e.currentTarget.getAttribute('data-id');
       if( videoId && videoId.length > 0 ){
-        // console.log( videoId )
         
-        fetch( `/api/v1/video/${ videoId }/like`, { method: 'PATCH' }).then( response => response.json() ).then( response => {
-          if( response ){
-            $likesCount.querySelector('small').innerHTML = response.likes == 1 ? `${ response.likes } like` : `${ response.likes } likes`;
-          }
+        /**
+         * Fetch Call
+         */
+        getApiCall( `/api/v1/video/${ videoId }/like`, { method: 'PATCH' }).then( response => {
+          console.log( response );
+          if( response ) $likesCount.querySelector('small').innerHTML = response.likes == 1 ? `${ response.likes } like` : `${ response.likes } likes`;
         }).catch( error => {
-          console.error(error);
+          /**
+           * Advice
+           */
+          modalContent('Please <a href="/login">login first</a> if you want to add a like!' );
+          console.error( error );
         });
       }
     });
@@ -261,9 +248,7 @@ window.onload = function () {
 
           // Manage response
           const response = getApiCall( url )
-            .then( videos => {
-              fetchVideosList( videos );
-            })
+            .then( videos => fetchVideosList( videos ))
             .catch( ( { status, statusText } ) => {
               if( status == 404 ) { 
                 document.querySelector('.main-content  .video-grid' ).innerHTML = '<p class="fst-italic">Not found videos with this tag</p>';
@@ -275,6 +260,42 @@ window.onload = function () {
       });
     })
   }
+
+
+  /**
+   * Site login
+   */
+  const $formLogin = document.querySelector('#form-login');
+  if( $formLogin ) {
+    
+    hyperform( $formLogin);
+    
+    $formLogin.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const $formUser = $formLogin.querySelector('input[name="login"]');
+      const $formPass = $formLogin.querySelector('input[name="password"]');
+      const $formTerms = $formLogin.querySelector('input[name="terms"]');
+      
+      let loginFormData = new URLSearchParams();
+      loginFormData.append('login', $formUser.value.trim() );
+      loginFormData.append('password', $formPass.value );
+      loginFormData = loginFormData.toString();
+
+      const response = getApiCall( '/api/v1/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: loginFormData
+      }).then( res => window.location.assign('/'))
+      .catch( err => {
+        console.error(err);
+        showMessage( err.statusText, 'alert-danger', 'bi-x-circle-fill' );
+      })
+    });
+  }
+
 };
 
 /**
@@ -299,6 +320,10 @@ const fetchVideosList = ( videos ) => {
   if( $videoGrid && videos.length ){
 
     $videoGrid.innerHTML = '';
+
+    /**
+     * Get all cards
+     */
     let htmlContent = videos.map( video => {
       let badgeContent = '';
       if( video.tags.length === 0 ) {
@@ -323,8 +348,40 @@ const fetchVideosList = ( videos ) => {
                 </div>
               </div>`;
     });
+
     // Append HTML
     $videoGrid.innerHTML = htmlContent.join(''); // Remove ','
     $videoCounter.innerHTML = `(${videos.length})`;
   }
+};
+
+/**
+ * Messages
+ */
+const showMessage = ( message, alertClass, iconClass ) => {
+  const $formMessage = document.querySelector('.form-upload-messages');
+
+  $formMessage.classList.add('animate__animated', 'animate__fadeIn', 'd-flex');
+  $formMessage.querySelector('span').textContent = message;
+  $formMessage.classList.add( alertClass );
+  $formMessage.querySelector('i').classList.add( iconClass );
+
+  // Animate message
+  setTimeout( () => {
+    $formMessage.classList.remove('animate__fadeIn');
+    $formMessage.classList.add('animate__fadeOut');
+    $formMessage.addEventListener('animationend', () => {
+      $formMessage.classList.remove('d-flex');
+    });
+  }, 5000 );
+
+  return false;
+};
+
+const modalContent = content => {
+  const $modal = document.querySelector('#modal')
+  const modal = bootstrap.Modal.getOrCreateInstance( $modal ) // Returns a Bootstrap modal instance
+  $modal.querySelector('.modal-body p').innerHTML = content;
+  modal.show();
+  return;
 };

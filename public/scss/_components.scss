@@ -65,7 +65,12 @@ a.card:hover {
   height: calc( 100vh - 90px );
 }
 
+.hf-invalid{
+  border: 1px solid red;
+}
+
 .search-form{
+  margin: auto;
   position: relative;
   .btn-outline-primary{
     color: $indigo;
@@ -118,18 +123,24 @@ a.card:hover {
   }
 }
 
-.form-check{
-  padding: 0.35em 0.65em 0.35em 1.7rem;
-  margin-right: 0;
-  font-size: 0.75em;
-  font-weight: 700;
-  background-color: $dark;
-  border-radius: 50rem !important;
-  color: $white;
-  text-transform: capitalize;
-  input:checked + label{
-    text-decoration: underline;
+#form-upload{
+  .form-check{
+    padding: 0.35em 0.65em 0.35em 1.7rem;
+    margin-right: 0;
+    font-size: 0.75em;
+    font-weight: 700;
+    background-color: $dark;
+    border-radius: 50rem !important;
+    color: $white;
+    text-transform: capitalize;
+    input:checked + label{
+      text-decoration: underline;
+    }
   }
+}
+
+.login-container{
+  height: calc( 100vh - 300px );
 }
 
 .btn-label {
@@ -178,6 +189,9 @@ a.card:hover {
     }
   }
 }
-.actions-content a{
-  display: inline-block;
+.actions-content {
+  flex: none;
+  a{
+    display: inline-block;
+  }
 }

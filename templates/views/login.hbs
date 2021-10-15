@@ -1,0 +1,31 @@
+{{> header }}
+<!-- Main content -->
+<div class="main-content h-100">
+  <div class="login-container container m-auto d-flex justify-content-center align-items-center flex-wrap">
+    <form id="form-login" class="w-md-50">
+      <h2>Login</h2>
+      <!-- Messages -->
+      <div class="form-upload-messages alert align-items-center fade show" role="alert">
+        <i class="bi" width="24" height="24" role="img" aria-label="Success:"></i>
+        <span class="small ms-3"></span>
+      </div>
+      <!-- Fields -->
+      <div class="mb-3">
+        <label for="form-user" class="form-label">Email address or username <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="form-user" name="login" aria-describedby="loginHelp" required />
+        <div id="loginHelp" class="form-text">Please, never share your email or username with anyone else.</div>
+      </div>
+      <div class="mb-3">
+        <label for="form-password" class="form-label">Password <span class="text-danger">*</span></label>
+        <input type="password" class="form-control" id="form-password" name="password" required />
+        <div id="loginHelp" class="form-text">Your secret password.</div>
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="form-terms" name="terms" value="accept" required>
+        <small><label class="form-check-label" for="form-terms">I accept the <em>terms & conditions</em> of the website. <span class="text-danger">*</span></label></small>
+      </div>
+      <input type="submit" class="btn btn-primary" value="Submit"/>
+    </form>
+  </div>
+</div>
+{{> footer }}

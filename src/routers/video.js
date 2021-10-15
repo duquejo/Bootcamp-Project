@@ -112,8 +112,9 @@ router.post('/video', uploadMiddleware, userMiddleware, async (req, res) => {
         });
       }
     }
-    res.status(201).send();
+    res.status(201).send( video );
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
@@ -139,11 +140,12 @@ router.get('/video/:id', async (req, res) => {
 /**
  * Delete video by Id
  */
-router.delete('/video/:id', async (req, res) => {
-
+router.delete('/video/:id', userMiddleware, async (req, res) => {
   try {
+
     const video = await Video.findOneAndDelete({
-      _id: req.params.id
+      _id: req.params.id,
+      owner: req.user._id // Don't remove a non-property video
     });
 
     if( ! video ) return res.status(404).send();
@@ -156,14 +158,15 @@ router.delete('/video/:id', async (req, res) => {
 });
 
 /**
- * Add User likes
+ * Add User likes (Unlimited)
  */
-router.patch('/video/:id/like', async (req, res) => {
+router.patch('/video/:id/like', userMiddleware, async (req, res) => {
   try {
     const video = await Video.findOneAndUpdate({ _id: req.params.id }, { $inc: { likes: 1 } }, { new: true } ).select('likes');
     if( ! video ) return res.status(404).send();
     res.send( video );
   } catch (e) {
+    console.log( e );
     res.status(500).send(e.message);
   }
 });
@@ -171,12 +174,12 @@ router.patch('/video/:id/like', async (req, res) => {
 /**
  * Add Categories to video
  */
-router.patch('/video/:id/tags', async (req, res) => {
+router.patch('/video/:id/tags', userMiddleware, async (req, res) => {
 
   const tags = req.body;
   try {
-
-    const video = await Video.findByIdAndUpdate( req.params.id, {
+    
+    const video = await Video.findOneAndUpdate({ _id: req.params.id, owner: req.user._id }, {
       $addToSet: {
         tags
       }

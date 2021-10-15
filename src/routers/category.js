@@ -6,10 +6,10 @@
  * @requires router Express Route
  * @requires multer Media Handling
  */
-const { response } = require('express');
-const express    = require('express');
-const Category   = require('../models/Category');
-const router     = express.Router();
+const express        = require('express');
+const Category       = require('../models/Category');
+const userMiddleware = require('../middleware/user');
+const router         = express.Router();
 
 /**
  * Get all tags
@@ -25,8 +25,7 @@ router.get('/tags', async (req, res) => {
 /**
  * Create new tags
  */
-router.post('/tag', async (req, res) => {
-  
+router.post('/tag', userMiddleware, async (req, res) => {
   const tagName = req.body.name.toLowerCase().trim();
   const tag = await Category.find({ name: tagName });
   
@@ -43,11 +42,5 @@ router.post('/tag', async (req, res) => {
     }
   }
 });
-
-/**
- * - Get tags ()
- * - Create tag (done)
- * - Delete tag (maybe)
- */
 
 module.exports = router;

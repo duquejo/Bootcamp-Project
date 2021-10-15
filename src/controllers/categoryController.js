@@ -2,7 +2,9 @@
  * 
  * Category Controller
  */
-const axios = require('axios').default;
+const axios          = require('axios').default;
+
+axios.defaults.baseURL = 'http://localhost:3000';
 
 class CategoryController {
   constructor(){
@@ -10,10 +12,10 @@ class CategoryController {
 
   static async fetchCategories(){
     try {
-      const response = await axios.get( 'http://localhost:3000/api/v1/tags' );
+      const response = await axios.get( `/api/v1/tags` );
       return response.data;
     } catch (e) {
-      console.error(e);
+      // console.error(e.message);
     }
   }
 }
