@@ -75,6 +75,8 @@ MONGODB_PASSWORD="MongoDB Password"
 
 UPLOADS_DIR= "It's recommended to use the default public/uploads value."
 
+JWT_SECRET="Secret JWT Key String"
+
 ```
 4. Run `npm run seed` to populate the users and some categories in the MongoDB database. It will include a development user for you.
 5. Execute `npm run dev` for quick development deployment.
@@ -105,6 +107,8 @@ MONGODB_USER="MongoDB User"
 MONGODB_PASSWORD="MongoDB Password"
 
 UPLOADS_DIR= "Check step 4"
+
+JWT_SECRET="Secret JWT Key String"
 
 ```
 

@@ -68,7 +68,7 @@ const seedDB = async () => {
     await new Category( cat3 ).save();
     await new Category( cat4 ).save();
 
-    console.log(chalk.green('Seeding process completed!'));
+    console.log('Seeding process completed!');
   } catch (e) {
     console.error('Something happened', e );
   }
