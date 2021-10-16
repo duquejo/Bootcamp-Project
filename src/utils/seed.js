@@ -46,7 +46,7 @@ const seedDB = async () => {
         username: 'demo2',
         email: 'andrea@demo.com',
         password: 'demo123*',
-        token: jwt.sign({ _id: userID }, process.env.JWT_SECRET )
+        token: jwt.sign({ _id: userID2 }, process.env.JWT_SECRET )
     };
 
     /**
