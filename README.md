@@ -1,6 +1,6 @@
 # Welcome to my Node JS Final Project!
 
-![Chilltime Logo](/public/images/Chilltime.png)
+![Chilltime Logo](/public/images/ChillTime.png)
 ## Chilltime Video App 
 *Version:* v1.1.0
 
