@@ -98,7 +98,7 @@ Password: demo123*
 
 User 2:
 Username: demo2
-Email: maria@demo.com
+Email: andrea@demo.com
 Password: demo123*
 
 ```
