@@ -60,6 +60,13 @@ a.card:hover {
   }
 }
 
+.navbar-brand{
+  img{
+    fill: $indigo;
+    width: 140px;
+  }
+}
+
 .suggested-video {
   overflow-x: auto;
   height: calc( 100vh - 90px );
@@ -72,6 +79,10 @@ a.card:hover {
 .search-form{
   margin: auto;
   position: relative;
+  .form-control{
+    height: 30px;
+    font-size: 13px;
+  }
   .btn-outline-primary{
     color: $indigo;
     border-color: $indigo;
@@ -106,6 +117,18 @@ a.card:hover {
   display: inline-flex;
   align-content: center;
   color: #212529;
+  i{
+    &:hover{
+      transition: color 0.2s ease-in;
+      color: $red-500;
+    }
+  }
+  &:hover{
+    i{
+      transition: color 0.2s ease-in;
+      color: $red-500;
+    }
+  }
 }
 
 .sidebar{

@@ -1,6 +1,13 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  
+  .header{
+    height: auto;
+    padding-bottom: 10px;
+  }
+
+  .main-content, .main-video-content{
+    margin-top: 6.2rem;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */

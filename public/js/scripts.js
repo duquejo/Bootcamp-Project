@@ -1,8 +1,11 @@
 
-
+/**
+ * 
+ * Sidebar logic
+ */
 window.addEventListener('DOMContentLoaded', event => {
 
-  // Toggle the side navigation
+  // Side navigation Toggle
   const sidebarToggle = document.querySelector('#sidebarToggle');
   const singleVideoContainer = document.querySelector('#single-video');
 
@@ -41,7 +44,9 @@ window.addEventListener('DOMContentLoaded', event => {
 
   showNavbar( 'header-toggle','nav-bar','body-pd','header');
 
-  /*===== LINK ACTIVE =====*/
+  /**
+   * Active link
+   */
   const linkColor = document.querySelectorAll('.nav_link')
 
   function colorLink(){
@@ -251,7 +256,7 @@ window.onload = function () {
             .then( videos => fetchVideosList( videos ))
             .catch( ( { status, statusText } ) => {
               if( status == 404 ) { 
-                document.querySelector('.main-content  .video-grid' ).innerHTML = '<p class="fst-italic">Not found videos with this tag</p>';
+                document.querySelector('.main-content  .video-grid' ).innerHTML = '<p class="fst-italic">No videos found with this tag.</p>';
               } else {
                 console.error( `Something happened ${ statusText }`);
               }
@@ -342,8 +347,8 @@ const fetchVideosList = ( videos ) => {
                   <div class="card-title mb-0"><a href="/video/${ video._id }">${ video.name }</a></div>
                   <p class="card-text mb-0 small"><a href="/user/${ video.owner.username }">${ video.owner.name }</a></p>
                   <div class="row mt-2">
-                    <p class="likes-content small col-md-6 col-12 text-center"><i class="bi bi-heart-fill"></i><span class="ms-2">${ video.likes } likes</span></p>
-                    <p class="small col-md-6 col-12 text-end fw-light fst-italic">${ moment( video.createdAt ).fromNow() }</p>
+                    <p class="likes-content small col-md-5 col-12 text-center"><i class="bi bi-heart-fill"></i><span class="ms-2">${ video.likes } likes</span></p>
+                    <p class="small col-md-7 col-12 text-end fw-light fst-italic">${ moment( video.createdAt ).fromNow() }</p>
                   </div>
                 </div>
               </div>`;

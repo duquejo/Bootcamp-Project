@@ -10,16 +10,16 @@
   {{/if}}
 
   <!-- Profile data -->
-  <div class="card mb-5">
+  <div class="card mb-5 animate__animated animate__fadeIn">
     <div class="row g-0">
-      <div class="col-md-4">
-        <img src="/images/user.png" class="img-fluid rounded-start" alt="{{ user.name }} photo"/>
+      <div class="col-md-3">
+        <img src="/images/user.png" class="img-fluid rounded-start h-100" alt="{{ user.name }} photo" style="object-fit: cover;"/>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="card-body">
           
           <!-- Card title -->
-          <h5 class="card-title">
+          <h4 class="card-title">
             {{#if own }}
               My profile card
             {{else}}
@@ -29,29 +29,53 @@
 
           <!-- User info -->
           <p class="card-text">
-            <div class="row mt-4">
+            <div class="row mb-2 mt-4">
               <div class="col-12 col-md-4 fw-bold">Name</div>
               <div class="col">{{ user.name }}</div>
             </div>
-            <div class="row">
-              <div class="col-12 col-md-4 fw-bold">Email</div>
-              <div class="col"><a class="text-decoration-underline" href="mailto:{{ user.email }}">{{ user.email }}</a></div>
-            </div>
-            <div class="row">
+            {{#if own }}
+              <div class="row mb-2">
+                <div class="col-12 col-md-4 fw-bold">Email</div>
+                <div class="col"><a class="card-link text-decoration-underline" href="mailto:{{ user.email }}">{{ user.email }}</a></div>
+              </div>
+            {{/if}}
+            <div class="row mb-2">
               <div class="col-4 col-md-4 fw-bold">Username</div>
               <div class="col">{{ user.username }}</div>
             </div>
-            <div class="row">
+            <div class="row mb-2">
               <div class="col-4 col-md-4 fw-bold">Active since</div>
               <div class="col">{{ humanDate user.createdAt }}</div>
             </div>
+            <div class="row mb-2">
+              <div class="col-4 col-md-4 fw-bold">My public profile URL</div>
+              <div class="col"><a class="card-link" href="/user/{{ user.username }}">{{ user.username }}</a></div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-4 col-md-4 fw-bold">Social links</div>
+              <div class="col">
+                <div class="hstack gap-3">
+                  <i class="bi bi-facebook"></i>
+                  <i class="bi bi-messenger"></i>
+                  <i class="bi bi-whatsapp"></i>
+                  <i class="bi bi-twitter"></i>
+                </div>
+              </div>
+            </div>
           </p>
+
         </div>
+        {{#if own }}
+          <div class="card-footer">
+            <small class="fst-italic">Only you can see your own email.</small>
+          </div>
+        {{/if}}        
       </div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row animate__animated animate__fadeIn">
     {{#if videos }}
       {{#if own }}
         <h5 class="mb-3">My last uploaded videos</h5>
@@ -62,7 +86,14 @@
         {{> card layout="col-sm-6 col-lg-4 mb-3" }}
       {{/each}}
     {{else}}
-      <p class="fst-italic">{{ user.name }} has not uploaded any videos.. (yet)</p>
+      {{#if own }}
+        <h5 class="mb-3">My last uploaded videos</h5>
+        <p class="fst-italic">You haven't uploaded any videos.. try <a href="/upload" class="text-decoration-underline">uploading</a> some!</p>
+      {{else}}
+        <h5 class="mb-3">Last {{ user.name }} uploaded videos</h5>
+        <p class="fst-italic">{{ user.name }} has not uploaded any videos.. (yet)</p>
+      {{/if}}    
+      
     {{/if}}
   </div>
 
