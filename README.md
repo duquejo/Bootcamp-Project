@@ -1,5 +1,7 @@
 # Welcome to my Node JS Final Project!
-## It's chilltime 
+
+![Chilltime Logo](/public/images/Chilltime.png)
+## Chilltime Video App 
 *Version:* v1.1.0
 
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
