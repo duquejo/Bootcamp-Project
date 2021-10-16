@@ -39,6 +39,15 @@ const seedDB = async () => {
         password: 'demo123*',
         token: jwt.sign({ _id: userID }, process.env.JWT_SECRET )
     };    
+    const userID2 = new mongoose.Types.ObjectId();
+    const seedUser2 = {
+        _id: userID2,
+        name: 'Andrea Johnson',
+        username: 'demo2',
+        email: 'andrea@demo.com',
+        password: 'demo123*',
+        token: jwt.sign({ _id: userID }, process.env.JWT_SECRET )
+    };
 
     /**
      * 
@@ -63,6 +72,7 @@ const seedDB = async () => {
     }
 
     await new User( seedUser ).save();
+    await new User( seedUser2 ).save();
     await new Category( cat1 ).save();
     await new Category( cat2 ).save();
     await new Category( cat3 ).save();

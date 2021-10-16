@@ -67,32 +67,40 @@ These commands have a reason in specific, the command `start` is for production 
 As I said in the first section, the app has a .env config support... So, if you want to run locally/our server this project, you need to follow this steps first.
 
 1. Install NPM dependencies & development dependencies. `npm i` (You need to have installed Node in the host server).
-2. Copy/paste the .env.example file located in `src/config/` directory and rename it as `.env`
+2. Copy/paste the `.env.example` file located in `src/config/` directory and rename it as `.env`
 3. Complete the following fields:
 
 ```.env
 
 # Server variables
 
-APP_PORT="Express Listening Port"
+APP_PORT="Express Listening Port or 3000 by default"
 
-MONGODB_URL="MongoDB URL, with leading mongodb:// config string."
+MONGODB_URL="MongoDB URL, with leading 'mongodb://' config string."
 MONGODB_USER="MongoDB User"
 MONGODB_PASSWORD="MongoDB Password"
 
-UPLOADS_DIR= "It's recommended to use the default public/uploads value."
+UPLOADS_DIR= "Custom app uploads directory, by default is 'public/uploads"
 
 JWT_SECRET="Secret JWT Key String"
 
 ```
 4. Run `npm run seed` to populate the users and some categories collection in the MongoDB database. It will include a development user for you.
 5. Execute `npm run dev` for quick development deployment.
-6. Navigate over `http://localhost:3000` and try to login here: `http://localhost:3000/login` with this demo credentials:
+6. Navigate over `http://localhost:3000` (Or your custom port) and try to login here: `http://localhost:3000/login` (Or your custom port) with this demo credentials:
 
 ```
-**Username**: demo
-**Email**: jose@demo.com
-**Password**: demo123*
+
+User 1:
+Username: demo
+Email: jose@demo.com
+Password: demo123*
+
+User 2:
+Username: demo2
+Email: maria@demo.com
+Password: demo123*
+
 ```
 
 
@@ -100,7 +108,7 @@ JWT_SECRET="Secret JWT Key String"
 If you want to run the automated unit tests, continue with the following steps:
 
 1. Install NPM dependencies & development dependencies. `npm i` (You need to have installed Node in the host server).
-2. Copy/paste the .env.example file located in `src/config/` directory and rename it as `test.env`.
+2. Copy/paste the `.env.example` file located in `src/config/` directory and rename it as `test.env`.
 3. Complete the following fields:
 
 ```.env
@@ -113,13 +121,13 @@ MONGODB_URL="MongoDB Test URL, with leading mongodb:// config string."
 MONGODB_USER="MongoDB User"
 MONGODB_PASSWORD="MongoDB Password"
 
-UPLOADS_DIR= "Check step 4"
+UPLOADS_DIR= "Check step 4 or public/uploads"
 
 JWT_SECRET="Secret JWT Key String"
 
 ```
 
-4. If you want to run tests without removing the uploaded uploads, please configure `UPLOADS_DIR` in the `test.env` file. 
+4. If you want to run tests without removing the uploaded uploads, please configure `UPLOADS_DIR` in the `test.env` file, or just use public/uploads like a development suite. 
 5. Take care if you want to run the automated tests in the main dev/prod uploads directory, that's because these testing tasks clean the whole database constantly.
 6. Execute `npm run test` for quick testing deployment.
 
